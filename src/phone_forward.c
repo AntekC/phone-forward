@@ -84,6 +84,13 @@ void phfwdDelete(PhoneForward *pf){
     free(pf);
 }
 
+void printNumber(char *number){
+    for(int i = 0; i < numberLen(number); ++i){
+        printf("%c",number[i]);
+    }
+    printf("\n");
+}
+
 void printTrie(PhoneForward *pf){
     for(int i = 0; i < NUMBER_OF_CHILDS; ++i){
         if(pf->child[i] != NULL){
@@ -92,7 +99,7 @@ void printTrie(PhoneForward *pf){
 
             if(pf->child[i]->isForward){
                 printf("Przkierowanie ostani = %c\n",i + '0');
-                puts(pf->child[i]->przkierowanie);
+                printNumber(pf->child[i]->przkierowanie);
             }
             printTrie(pf->child[i]);
         }
