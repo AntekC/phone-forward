@@ -9,7 +9,7 @@ typedef struct PhoneNumbers PhoneNumbers;
 typedef struct PhoneForward PhoneForward;
 
 struct PhoneNumbers {
-    char const *number;
+    char *number;
     PhoneNumbers *next;
 };
 
@@ -119,20 +119,6 @@ void printTrie(PhoneForward *pf) {
     }
 }
 
-//void removeForward(PhoneForward *pf, char const *num) {
-//    size_t number_length = numberLen(num);
-//    for (size_t level = 0; level < number_length; ++level) {
-//        int index = num[level] - '0';
-//        if (level == number_length - 1) {
-//            phfwdDelete(pf->child[index]);
-//            pf->child[index] = NULL;
-//        } else if (pf->child[index] == NULL) {
-//            break;
-//        }
-//        pf = pf->child[index];
-//    }
-//}
-
 bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
     insert(pf, num1, num2);
     printTrie(pf);
@@ -166,7 +152,7 @@ char *combineNumbers(char const *num1, char const *num2) {
     for (size_t i = num1_length; i < num1_length + num2_length; ++i) {
         ans[i] = num2[i - num1_length];
     }
-    ans[num1_length+num2_length] = '\0';
+    ans[num1_length + num2_length] = '\0';
 
     return ans;
 }
@@ -184,19 +170,14 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     size_t number_length = numberLen(num);
     PhoneNumbers *ans = newPhoneNumber(makeCopy(num), NULL);
 
-    for (size_t level = 0; level <= number_length; ++level) {
+    for (size_t level = 0; level < number_length; ++level) {
         int index = num[level] - '0';
-
-        if (pf->isForward) {
-
-            if(ans != NULL){
-                phnumDelete(ans);
-            }
-            ans = newPhoneNumber(combineNumbers(pf->przkierowanie, num + level), NULL);
-        }
 
         if (pf->child[index] == NULL) {
             return ans;
+        } else if (pf->child[index]->isForward) {
+            phnumDelete(ans);
+            ans = newPhoneNumber(combineNumbers(pf->child[index]->przkierowanie, num + level + 1), NULL);
         }
 
         pf = pf->child[index];
@@ -210,10 +191,9 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
 }
 
 
-
 char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     for (size_t i = 0; i < idx; ++i) {
-        if(pnum != NULL){
+        if (pnum != NULL) {
             pnum = pnum->next;
         } else {
             break;

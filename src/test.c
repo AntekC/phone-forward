@@ -28,7 +28,7 @@ int main() {
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "123456");
+    strcpy(num1, "0347298");
 
     pnum = phfwdGet(pf,num1);
 
