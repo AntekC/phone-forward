@@ -1,5 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja /Users/antonibryk/Programing/Studia/Duze_zadanie
--- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/antonibryk/Programing/Studia/Duze_zadanie/cmake-build-debug
+Cannot generate into /Users/antonibryk/Programing/Studia/Duze_zadanie
+It is already used for project /home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie
+
+Please either delete it manually or select another generation directory
