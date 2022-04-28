@@ -32,12 +32,12 @@ int main() {
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "1234554454");
+    strcpy(num1, "9234554454");
     strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "124314123");
+    strcpy(num1, "824314123");
     strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
@@ -52,12 +52,12 @@ int main() {
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "679123");
+    strcpy(num1, "579123");
     strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "7878123");
+    strcpy(num1, "4878123");
     strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
