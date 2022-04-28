@@ -17,50 +17,22 @@ int main() {
     PhoneNumbers *pnum;
 
     pf = phfwdNew();
-    for(int i = 0; i < MAX_LEN; ++i){
 
-    }
     strcpy(num1, "123");
     strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
 
-    printf("added 123\n");
-
-    strcpy(num1, "124");
-    strcpy(num2, "8");
+    strcpy(num1, "123456");
+    strcpy(num2, "777777");
 
     phfwdAdd(pf, num1, num2);
 
-    strcpy(num1, "9234554454");
-    strcpy(num2, "9");
+    strcpy(num1, "123456");
 
-    phfwdAdd(pf, num1, num2);
+    pnum = phfwdGet(pf,num1);
 
-    strcpy(num1, "824314123");
-    strcpy(num2, "9");
-
-    phfwdAdd(pf, num1, num2);
-
-    strcpy(num1, "7699123");
-    strcpy(num2, "9");
-
-    phfwdAdd(pf, num1, num2);
-
-    strcpy(num1, "68969123");
-    strcpy(num2, "9");
-
-    phfwdAdd(pf, num1, num2);
-
-    strcpy(num1, "579123");
-    strcpy(num2, "9");
-
-    phfwdAdd(pf, num1, num2);
-
-    strcpy(num1, "4878123");
-    strcpy(num2, "9");
-
-    phfwdAdd(pf, num1, num2);
+    puts(phnumGet(pnum,0));
 
     phfwdDelete(pf);
 
