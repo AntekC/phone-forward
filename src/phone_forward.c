@@ -75,13 +75,13 @@ void insert(PhoneForward *pf, char const *num1, char const *num2){
 void phfwdDelete(PhoneForward *pf){
     for(int i = 0; i < NUMBER_OF_CHILDS; ++i){
         if(pf->child[i] != NULL){
-            if(pf->child[i]->isForward){
-                free(pf->child[i]->przkierowanie);
-            }
             phfwdDelete(pf->child[i]);
-            free(pf->child[i]);
         }
     }
+    if(pf->isForward){
+        free(pf->przkierowanie);
+    }
+    free(pf);
 }
 
 void printTrie(PhoneForward *pf){
