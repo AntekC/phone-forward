@@ -1,4 +1,0 @@
-/home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie/CMakeFiles/rebuild_cache.dir
-/home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie/CMakeFiles/edit_cache.dir
-/home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie/CMakeFiles/doc.dir
-/home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie/CMakeFiles/phone_forward.dir

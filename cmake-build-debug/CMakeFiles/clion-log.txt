@@ -1,4 +1,0 @@
-Cannot generate into /Users/antonibryk/Programing/Studia/Duze_zadanie
-It is already used for project /home/students/inf/a/ab438254/Duze_zadanie/Duze_zadanie
-
-Please either delete it manually or select another generation directory
