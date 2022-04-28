@@ -34,6 +34,7 @@ int main() {
 
     puts(phnumGet(pnum,0));
 
+    phnumDelete(pnum);
     phfwdDelete(pf);
 
     return 0;
