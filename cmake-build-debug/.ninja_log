@@ -65,3 +65,6 @@
 507	616	1651160418900431712	phone_forward	bb05ef3ce99bd24d
 1	68	1651160455817713405	CMakeFiles/phone_forward.dir/src/phone_forward.c.o	6f6be3dae7593791
 68	126	1651160455876315754	phone_forward	bb05ef3ce99bd24d
+1	62	1651162393965141736	CMakeFiles/phone_forward.dir/src/test.c.o	4576d3f01c0b37a5
+0	71	1651162393974363154	CMakeFiles/phone_forward.dir/src/phone_forward.c.o	6f6be3dae7593791
+75	133	1651162394037608269	phone_forward	bb05ef3ce99bd24d

@@ -44,9 +44,10 @@ int numberLen(char const *number){
 }
 
 char* makeCopy(char const *number){
-    char* ans = malloc(numberLen(number) * sizeof(char)+1);
+    size_t number_length = numberLen(number);
+    char* ans = malloc(number_length * sizeof(char)+1);
     if(ans == NULL) exit(1);
-	for(int i = 0; i < numberLen(number); ++i){
+	for(int i = 0; i < number_length; ++i){
         ans[i] = number[i];
     }
 	ans[numberLen(number)] = '\0';
@@ -58,16 +59,16 @@ PhoneForward * phfwdNew(void){
 }
 
 void insert(PhoneForward *pf, char const *num1, char const *num2){
-    for(int level = 0; level < numberLen(num1); ++level){
+    size_t number_length = numberLen(num1);
+    for(int level = 0; level < number_length; ++level){
         int index = num1[level] - '0';
         if(pf->child[index] == NULL){
             pf->child[index] = newNode();
         }
         pf = pf->child[index];
 
-        if(level == numberLen(num1) - 1){
+        if(level == (int) number_length - 1){
             pf->isForward = true;
-			printf("Lenght of num2 = %d\n",numberLen(num2));
             pf->przkierowanie = makeCopy(num2);
         }
     }

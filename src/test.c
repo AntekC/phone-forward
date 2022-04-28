@@ -11,14 +11,15 @@
 
 
 int main() {
-    char num1[MAX_LEN + 1], num2[MAX_LEN + 1];
+    char num1[MAX_LEN + 1], num2[MAX_LEN + 1], num3[MAX_LEN + 1];
 
     PhoneForward *pf;
     PhoneNumbers *pnum;
-    printf("lala\n");
 
     pf = phfwdNew();
+    for(int i = 0; i < MAX_LEN; ++i){
 
+    }
     strcpy(num1, "123");
     strcpy(num2, "9");
 
@@ -28,6 +29,36 @@ int main() {
 
     strcpy(num1, "124");
     strcpy(num2, "8");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "1234554454");
+    strcpy(num2, "9");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "124314123");
+    strcpy(num2, "9");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "7699123");
+    strcpy(num2, "9");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "68969123");
+    strcpy(num2, "9");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "679123");
+    strcpy(num2, "9");
+
+    phfwdAdd(pf, num1, num2);
+
+    strcpy(num1, "7878123");
+    strcpy(num2, "9");
 
     phfwdAdd(pf, num1, num2);
 
