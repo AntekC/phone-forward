@@ -73,17 +73,16 @@ void insert(PhoneForward *pf, char const *num1, char const *num2){
 
 
 void phfwdDelete(PhoneForward *pf){
-    if(pf != NULL){
-        free(pf);
+    for(int i = 0; i < NUMBER_OF_CHILDS; ++i){
+        if(pf->child[i] != NULL){
+            phfwdDelete(pf->child[i]);
+            free(pf->child[i]);
+        }
     }
 }
 
-PhoneForward* wyszukaj(PhoneForward *pf, char const *num){
-
-}
-
 void printTrie(PhoneForward *pf){
-    for(int i = 0; i < 10; ++i){
+    for(int i = 0; i < NUMBER_OF_CHILDS; ++i){
         if(pf->child[i] != NULL){
 
             printf("%c ", i + '0');

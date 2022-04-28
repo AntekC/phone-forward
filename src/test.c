@@ -30,7 +30,8 @@ int main() {
     strcpy(num2, "8");
 
     phfwdAdd(pf, num1, num2);
-    
+
+    phfwdDelete(pf);
 
     return 0;
 
