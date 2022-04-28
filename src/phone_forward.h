@@ -113,4 +113,6 @@ void phnumDelete(PhoneNumbers *pnum);
  */
 char const * phnumGet(PhoneNumbers const *pnum, size_t idx);
 
+void printTrie(PhoneForward *pf);
+
 #endif /* __PHONE_FORWARD_H__ */
