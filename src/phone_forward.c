@@ -43,11 +43,13 @@ int numberLen(char const *number){
     return ans;
 }
 
-char * makeCopy(char const* number){
-    char* ans = malloc(numberLen(number) * sizeof(char));
-    for(int i = 0; i < numberLen(number); ++i){
+char* makeCopy(char const *number){
+    char* ans = malloc(numberLen(number) * sizeof(char)+1);
+    if(ans == NULL) exit(1);
+	for(int i = 0; i < numberLen(number); ++i){
         ans[i] = number[i];
     }
+	ans[numberLen(number)] = '\0';
     return ans;
 }
 
@@ -65,6 +67,7 @@ void insert(PhoneForward *pf, char const *num1, char const *num2){
 
         if(level == numberLen(num1) - 1){
             pf->isForward = true;
+			printf("Lenght of num2 = %d\n",numberLen(num2));
             pf->przkierowanie = makeCopy(num2);
         }
     }
@@ -99,7 +102,7 @@ void printTrie(PhoneForward *pf){
 
             if(pf->child[i]->isForward){
                 printf("Przkierowanie ostani = %c\n",i + '0');
-                printNumber(pf->child[i]->przkierowanie);
+                if(pf->child[i]->przkierowanie != NULL) printNumber(pf->child[i]->przkierowanie);
             }
             printTrie(pf->child[i]);
         }

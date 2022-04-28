@@ -1,0 +1,1 @@
+/usr/bin/cc -std=c17 -Wall -Wextra -Wno-implicit-fallthrough -O2 -DNDEBUG -rdynamic CMakeFiles/phone_forward.dir/src/phone_forward.c.o CMakeFiles/phone_forward.dir/src/test.c.o -o phone_forward 
