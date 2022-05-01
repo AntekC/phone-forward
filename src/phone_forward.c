@@ -24,6 +24,7 @@ static PhoneForward *newNode(void) {
     //TODO obsługa błędu pamięci
     ans->isForward = false;
     ans->przkierowanie = NULL;
+
     for (int i = 0; i < NUMBER_OF_CHILDS; ++i) {
         ans->child[i] = NULL;
     }
@@ -83,7 +84,7 @@ void insert(PhoneForward *pf, char const *num1, char const *num2) {
 }
 
 void phfwdDelete(PhoneForward *pf) {
-    for (int i = 0; i < NUMBER_OF_CHILDS; ++i) {
+    for (size_t i = 0; i < NUMBER_OF_CHILDS; ++i) {
         if (pf->child[i] != NULL) {
             phfwdDelete(pf->child[i]);
         }
@@ -95,7 +96,7 @@ void phfwdDelete(PhoneForward *pf) {
 }
 
 void printNumber(char *number) {
-    for (int i = 0; i < numberLen(number); ++i) {
+    for (size_t i = 0; i < numberLen(number); ++i) {
         printf("%c", number[i]);
     }
     printf("\n");
