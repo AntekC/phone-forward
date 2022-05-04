@@ -163,6 +163,9 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
 
         if (level == number1_length - 1) {
             pf->is_forward = true;
+            if(pf->forward != NULL){
+                free(pf->forward);
+            }
             pf->forward = makeCopy(num2);
             if(pf->forward == NULL){
                 return false;
