@@ -1,14 +1,14 @@
-#ifdef NDEBUG
-#undef NDEBUG
-#endif
-
-#include "phone_forward.h"
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
-
-#define MAX_LEN 23
-
+//#ifdef NDEBUG
+//#undef NDEBUG
+//#endif
+//
+//#include "phone_forward.h"
+//#include <assert.h>
+//#include <stdio.h>
+//#include <string.h>
+//
+//#define MAX_LEN 23
+//
 //int main() {
 //    char num1[MAX_LEN + 1], num2[MAX_LEN + 1];
 //    PhoneForward *pf;
@@ -21,6 +21,10 @@
 //    assert(phfwdAdd(pf, num1, num2) == true);
 //    memset(num1, 0, sizeof num1);
 //    memset(num2, 0, sizeof num2);
+//
+//    strcpy(num1, "123456");
+//    strcpy(num2, "777777");
+//    assert(phfwdAdd(pf, num1, num2) == true);
 //
 //    pnum = phfwdGet(pf, "1234");
 //    assert(strcmp(phnumGet(pnum, 0), "94") == 0);
@@ -110,28 +114,28 @@
 //    printf("All test passed\n");
 //    return 0;
 //}
-
-//void printNumber(char *number) {
-//    for (size_t i = 0; i < numberLength(number); ++i) {
-//        printf("%c", number[i]);
-//    }
-//    printf("\n");
-//}
-
-//void printTrie(PhoneForward *pf) {
-//    if (pf != NULL) {
-//        for (int i = 0; i < NUMBER_OF_CHILDS; ++i) {
-//            if (pf->child[i] != NULL) {
 //
-//                printf("%c ", i + '0');
+////void printNumber(char *number) {
+////    for (size_t i = 0; i < numberLength(number); ++i) {
+////        printf("%c", number[i]);
+////    }
+////    printf("\n");
+////}
 //
-//                if (pf->child[i]->isForward) {
-//                    printf("Przkierowanie ostani = %c numer przekierowania = ", i + '0');
-//                    if (pf->child[i]->przkierowanie != NULL) printNumber(pf->child[i]->przkierowanie);
-//                }
-//                printTrie(pf->child[i]);
-//            }
-//
-//        }
-//    }
-//}
+////void printTrie(PhoneForward *pf) {
+////    if (pf != NULL) {
+////        for (int i = 0; i < NUMBER_OF_CHILDREN; ++i) {
+////            if (pf->child[i] != NULL) {
+////
+////                printf("%c ", i + '0');
+////
+////                if (pf->child[i]->is_forward) {
+////                    printf("Przkierowanie ostani = %c numer przekierowania = ", i + '0');
+////                    if (pf->child[i]->przkierowanie != NULL) printNumber(pf->child[i]->przkierowanie);
+////                }
+////                printTrie(pf->child[i]);
+////            }
+////
+////        }
+////    }
+////}

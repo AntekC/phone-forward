@@ -15,7 +15,6 @@ struct PhoneNumbers {
 
 struct PhoneForward {
     PhoneForward *child[NUMBER_OF_CHILDREN];
-    PhoneForward *father;
     char *forward;
     bool is_forward;
 };
@@ -38,20 +37,11 @@ static int numberLength(char const *number) {
     }
 }
 
-/** @brief Tworzy scalenie dwóch numerów
- * Tworzy napis będący scaleniem dwóch numerów @p num1 i @p num2.
- * @param[in] num1 - wskaźnik na napis reprezentujący pierwszy numer do scalenia;
- * @param[in] num2 - wskaźnik na napis reprezentujący drugi numer do scalenia;
- * @return Wskaźnik na napis reprezentujący scalenie dwóch numerów. Wartość NULL, jeśli
- *         nie udało się alokować pamięci.
- */
 static char *combineNumbers(char const *num1, char const *num2) {
     size_t num1_length = numberLength(num1);
     size_t num2_length = numberLength(num2);
     char *ans = malloc((num1_length + num2_length + 1) * sizeof(char));
-    if(ans == NULL){
-        return NULL;
-    }
+    //TODO obluga bledu pamieci
 
     for (size_t i = 0; i < num1_length; ++i) {
         ans[i] = num1[i];
@@ -64,13 +54,6 @@ static char *combineNumbers(char const *num1, char const *num2) {
     return ans;
 }
 
-/** @brief Sprawdza czy dwa numery są identyczne
- * Sprawdza czy @p num1 jest identyczny jak @p num2.
- * @param[in] num1 - wskaźnik na napis reprezentujący pierwszy numer;
- * @param[in] num2 - wskaźnik na napis reprezentujący drugi numer;
- * @return Wartość @p true, jeśli numery są identyczne.
- *         Wartość @p false, jeśli numery nie są identyczne.
- */
 static bool areNumbersIndentical(char const *num1, char const *num2) {
     size_t number1_length = numberLength(num1);
     size_t number2_length = numberLength(num2);
@@ -90,18 +73,10 @@ static bool areNumbersIndentical(char const *num1, char const *num2) {
     }
 }
 
-/** @brief Tworzy kopie numeru.
- * Tworzy kopię numeru @p number.
- * @param[in] number - wskaźnik na napis reprezentujący numer do skopiowania;
- * @return Wskaźnik na napis będący kopią numberu @p number lub NULL, gdy nie
- *         udało się alkować pamięci.
- */
 static char *makeCopy(char const *number) {
     size_t number_length = numberLength(number);
     char *ans = malloc(number_length * sizeof(char) + 1);
-    if (ans == NULL){
-        return NULL;
-    }
+    if (ans == NULL) exit(1); //TODO obsluga bledu
 
     for (size_t i = 0; i < number_length; ++i) {
         ans[i] = number[i];
@@ -111,14 +86,13 @@ static char *makeCopy(char const *number) {
     return ans;
 }
 
-static PhoneForward *newNode(PhoneForward *father) {
+static PhoneForward *newEmptyNode(void) {
     PhoneForward *ans = malloc(sizeof(PhoneForward));
     if (ans == NULL) {
         return NULL;
     }
 
     ans->is_forward = false;
-    ans->father = father;
     ans->forward = NULL;
     for (int i = 0; i < NUMBER_OF_CHILDREN; ++i) {
         ans->child[i] = NULL;
@@ -153,10 +127,8 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
         int index = num1[level] - '0';//TODO zrobic funkcje charToInt()
 
         if (pf->child[index] == NULL) {
-            pf->child[index] = newNode(pf);
-            if(pf->child[index] == NULL){
-                return false;
-            }
+            pf->child[index] = newEmptyNode();
+            //TODO obludga bledy pamieci
         }
 
         pf = pf->child[index];
@@ -164,9 +136,7 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
         if (level == number1_length - 1) {
             pf->is_forward = true;
             pf->forward = makeCopy(num2);
-            if(pf->forward == NULL){
-                return false;
-            }
+            //TODO obsługa błędu pamięci
         } //TODO wyrzucic to poza fora
     }
 
@@ -174,43 +144,21 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
 }
 
 PhoneForward *phfwdNew(void) {
-    return newNode(NULL);
+    return newEmptyNode();
     //TODO obsluga bledu
 }
 
 void phfwdDelete(PhoneForward *pf) {
-    if(pf != NULL){
-        PhoneForward *end = pf->father;
-        do {
-            for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-                if(pf->child[i] != NULL){
-                    PhoneForward *pom1 = pf;
-                    pf = pf->child[i];
-                    pom1->child[i] = NULL;
-                    i = 0;
-                }
-            }
-            if (pf->is_forward) {
-                free(pf->forward);
-            }
-            PhoneForward *pom = pf;
-            pf = pf->father;
-            free(pom);
-        } while(pf != end);
+    if (pf != NULL) {
+        for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
+            phfwdDelete(pf->child[i]);
+        }
+        if (pf->is_forward) {
+            free(pf->forward);
+        }
+        free(pf);
     }
 }
-
-//void phfwdDelete(PhoneForward *pf) {
-//    if (pf != NULL) {
-//        for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-//            phfwdDelete(pf->child[i]);
-//        }
-//        if (pf->is_forward) {
-//            free(pf->forward);
-//        }
-//        free(pf);
-//    }
-//}
 
 bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
     return insert(pf, num1, num2);
