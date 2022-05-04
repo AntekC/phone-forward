@@ -23,7 +23,7 @@ set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(SOURCE_FILES
     src/phone_forward.h
     src/phone_forward.c
-    src/test.c src/stack_test.c)
+    src/test.c src/stack_test.c src/stac_test2.c)
 
 # Wskazujemy plik wykonywalny.
 add_executable(phone_forward ${SOURCE_FILES})
