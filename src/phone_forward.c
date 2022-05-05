@@ -20,6 +20,12 @@ struct PhoneForward {
     bool is_forward;
 };
 
+/** @brief Wyznacza długość numeru.
+ * Wyznacza długość numeru @p number.
+ * @param[in] number - wskaźnik na napis reprezentujący numer.
+ * @return Długość numeru lub 0 jeśli wskaźnik @p number jest pusty lub,
+ *         nie reprezentuje on poprawnego numeru.
+ */
 static int numberLength(char const *number) {
     int answer = 0;
     if (number == NULL) {
@@ -111,6 +117,12 @@ static char *makeCopy(char const *number) {
     return ans;
 }
 
+/** @brief Tworzy nowy węzeł.
+ * Tworzy nowy węzeł struktury PhoneForward z wszytkimi polami oprócz pola father,
+ * zainicjalizowanymi na NULL.
+ * @param father - wskaźnik na węzeł będący ojcem tworzonego węzła.
+ * @return Wskaźnik na węzeł. Wartość NULL, jeśli nie udało się alokować pamięci.
+ */
 static PhoneForward *newNode(PhoneForward *father) {
     PhoneForward *ans = malloc(sizeof(PhoneForward));
     if (ans == NULL) {
@@ -127,6 +139,12 @@ static PhoneForward *newNode(PhoneForward *father) {
     return ans;
 }
 
+/** @brief Tworzy nową strukturę.
+ *  Tworzy nową strukturę PhoneNumbers zawierającą jeden numer telefonu @p number.
+ * @param[in] number - wskaźnik na napis reprezentujący numer.
+ * @return Wskaźnik na strukturę przechowującą numer telefonu @p number lub NULL, gdy nie
+ *         udało się alokować pamięci.
+ */
 static PhoneNumbers *newPhoneNumber(char *number) {
     PhoneNumbers *ans = malloc(sizeof(PhoneNumbers));
     if (ans == NULL) {
@@ -139,6 +157,13 @@ static PhoneNumbers *newPhoneNumber(char *number) {
     return ans;
 }
 
+/** @brief
+ *
+ * @param pf
+ * @param num1
+ * @param num2
+ * @return
+ */
 static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
     size_t number1_length = numberLength(num1);
     size_t number2_length = numberLength(num2);
@@ -160,17 +185,16 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
         }
 
         pf = pf->child[index];
+    }
 
-        if (level == number1_length - 1) {
-            pf->is_forward = true;
-            if (pf->forward != NULL) {
-                free(pf->forward);
-            }
-            pf->forward = makeCopy(num2);
-            if (pf->forward == NULL) {
-                return false;
-            }
-        } //TODO wyrzucic to poza fora
+    pf->is_forward = true;
+    if (pf->forward != NULL) {
+        free(pf->forward);
+    }
+
+    pf->forward = makeCopy(num2);
+    if (pf->forward == NULL) {
+        return false;
     }
 
     return true;
@@ -251,13 +275,13 @@ void phnumDelete(PhoneNumbers *pnum) {
 }
 
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
-    if (pf == NULL || numberLength(num) == 0) {
-        return NULL;
-    }
     PhoneForward *save = NULL;//TODO zmienic nazwy
     size_t level_save = 0;
-
     size_t number_length = numberLength(num);
+
+    if (pf == NULL || number_length == 0) {
+        return NULL;
+    }
 
     for (size_t level = 0; level < number_length; ++level) {
         int index = num[level] - '0';
@@ -297,40 +321,3 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
 PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
     return newPhoneNumber(NULL);
 }
-
-
-//int main(){
-//
-//    char num1[MAX + 1], num2[MAX + 1];
-//    PhoneForward *pf;
-//    PhoneNumbers *pnum;
-//
-//    pf = phfwdNew();
-//
-//    strcpy(num1, "123");
-//    strcpy(num2, "9");
-//
-//    assert(strcmp(combineNumbers(num1,num2),"1239") == 0);
-//
-//    strcpy(num1, "123");
-//    strcpy(num2, "");
-//
-//    assert(strcmp(combineNumbers(num1,num2),"123") == 0);
-//
-//    strcpy(num1, "");
-//    strcpy(num2, "1239");
-//
-//    assert(strcmp(combineNumbers(num1,num2),"1239") == 0);
-//
-//    strcpy(num1, "");
-//    strcpy(num2, "");
-//
-//    assert(strcmp(combineNumbers(num1,num2),"") == 0);
-//
-//    strcpy(num1, "131");
-//    strcpy(num2, "131");
-//
-//    assert(strcmp(combineNumbers(num1,num2),"131131") == 0);
-//
-//    return 0;
-//}
