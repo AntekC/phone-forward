@@ -279,8 +279,11 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     size_t level_save = 0;
     size_t number_length = numberLength(num);
 
-    if (pf == NULL || number_length == 0) {
+    if (pf == NULL) {
         return NULL;
+    }
+    if (number_length == 0) {
+        return newPhoneNumber(NULL);
     }
 
     for (size_t level = 0; level < number_length; ++level) {
