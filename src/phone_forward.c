@@ -204,42 +204,42 @@ PhoneForward *phfwdNew(void) {
     return newNode(NULL);
 }
 
-//void phfwdDelete(PhoneForward *pf) {
-//    if (pf != NULL) {
-//        PhoneForward *end = pf->father;
-//
-//        do {
-//            for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-//                if (pf->child[i] != NULL) {
-//                    PhoneForward *pom1 = pf;
-//                    pf = pf->child[i];
-//                    pom1->child[i] = NULL;
-//                    i = 0;
-//                }
-//            }
-//
-//            if (pf->is_forward) {
-//                free(pf->forward);
-//            }
-//
-//            PhoneForward *pom = pf;
-//            pf = pf->father;
-//            free(pom);
-//        } while (pf != end);
-//    }
-//}
-
 void phfwdDelete(PhoneForward *pf) {
     if (pf != NULL) {
-        for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-            phfwdDelete(pf->child[i]);
-        }
-        if (pf->is_forward) {
-            free(pf->forward);
-        }
-        free(pf);
+        PhoneForward *end = pf->father;
+
+        do {
+            for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
+                if (pf->child[i] != NULL) {
+                    PhoneForward *pom1 = pf;
+                    pf = pf->child[i];
+                    pom1->child[i] = NULL;
+                    i = 0;
+                }
+            }
+
+            if (pf->is_forward) {
+                free(pf->forward);
+            }
+
+            PhoneForward *pom = pf;
+            pf = pf->father;
+            free(pom);
+        } while (pf != end);
     }
 }
+
+//void phfwdDelete(PhoneForward *pf) {
+//    if (pf != NULL) {
+//        for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
+//            phfwdDelete(pf->child[i]);
+//        }
+//        if (pf->is_forward) {
+//            free(pf->forward);
+//        }
+//        free(pf);
+//    }
+//}
 
 bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
     return insert(pf, num1, num2);
