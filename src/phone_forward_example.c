@@ -15,6 +15,9 @@ int main() {
   PhoneNumbers *pnum;
 
   pf = phfwdNew();
+  pnum = phfwdGet(pf, "");
+  assert(pnum != NULL && phnumGet(pnum, 0) == NULL);
+  phnumDelete(pnum);
 
   strcpy(num1, "123");
   strcpy(num2, "9");
