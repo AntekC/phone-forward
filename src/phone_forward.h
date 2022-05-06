@@ -17,7 +17,7 @@
  */
 struct PhoneForward;
 
-/** @typedef PhoneForward
+/**
  * To jest definicja struktury PhoneForward.
  */
 typedef struct PhoneForward PhoneForward;
