@@ -17,7 +17,6 @@
  */
 struct PhoneForward {
     struct PhoneForward *child[NUMBER_OF_CHILDREN]; ///< Tablica wskaźników na dzieci węzła.
-    //struct PhoneForward *father;
     bool is_forward; // Pole oznaczająca czy dany węzeł jest przekierowaniem.
     char *forward; // Wskaźnik na numer będący przekierowaniem.
 };
@@ -62,20 +61,20 @@ static int numberLength(char const *number) {
  *         nie udało się alokować pamięci.
  */
 static char *combineNumbers(char const *num1, char const *num2) {
-    size_t num1_length = numberLength(num1);
-    size_t num2_length = numberLength(num2);
-    char *ans = malloc((num1_length + num2_length + 1) * sizeof(char));
+    size_t number1_length = numberLength(num1);
+    size_t number2_length = numberLength(num2);
+    char *ans = malloc((number1_length + number2_length + 1) * sizeof(char));
     if (ans == NULL) {
         return NULL;
     }
 
-    for (size_t i = 0; i < num1_length; ++i) {
+    for (size_t i = 0; i < number1_length; ++i) {
         ans[i] = num1[i];
     }
-    for (size_t i = num1_length; i < num1_length + num2_length; ++i) {
-        ans[i] = num2[i - num1_length];
+    for (size_t i = number1_length; i < number1_length + number2_length; ++i) {
+        ans[i] = num2[i - number1_length];
     }
-    ans[num1_length + num2_length] = '\0';
+    ans[number1_length + number2_length] = '\0';
 
     return ans;
 }
@@ -138,7 +137,6 @@ static PhoneForward *newNode() {
     }
 
     ans->is_forward = false;
-    //ans->father = father;
     ans->forward = NULL;
     for (int i = 0; i < NUMBER_OF_CHILDREN; ++i) {
         ans->child[i] = NULL;
@@ -148,7 +146,7 @@ static PhoneForward *newNode() {
 }
 
 /** @brief Tworzy nową strukturę.
- *  Tworzy nową strukturę PhoneNumbers zawierającą jeden numer telefonu @p number.
+ * Tworzy nową strukturę PhoneNumbers zawierającą jeden numer telefonu @p number.
  * @param[in] number - wskaźnik na napis reprezentujący numer.
  * @return Wskaźnik na strukturę przechowującą numer telefonu @p number lub NULL, gdy nie
  *         udało się alokować pamięci.
@@ -166,7 +164,7 @@ static PhoneNumbers *newPhoneNumber(char *number) {
 }
 
 /** @brief Wstawia przekierowanie.
- * Wstawia do struktury pf przekierowanie numerów z prefiksem @p num1, na numer @p num2.
+ * Wstawia do struktury @p pf przekierowanie numerów z prefiksem @p num1, na numer @p num2.
  * @param[in,out] pf – wskaźnik na strukturę przechowującą przekierowania
  *                     numerów;
  * @param[in] num1   – wskaźnik na napis reprezentujący prefiks numerów
@@ -267,7 +265,7 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     PhoneForward *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
-    
+
     if (pf == NULL || number_length == 0) {
         return newPhoneNumber(NULL);
     }
@@ -307,8 +305,13 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     }
 }
 
+/** @brief Aktualnie niezaimplmentowana funkcja.
+ * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] num – wskaźnik na napis reprezentujący numer.
+ * @return NULL.
+ */
 PhoneNumbers *phfwdReverse(
         __attribute__((unused)) PhoneForward const *pf,
         __attribute__((unused)) char const *num) {
-    return newPhoneNumber(NULL);
+    return NULL;
 }
