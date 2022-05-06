@@ -16,6 +16,9 @@
  * To jest struktura przechowująca przekierowania numerów telefonów.
  */
 struct PhoneForward;
+/** @typedef PhoneForward
+ * To jest
+ */
 typedef struct PhoneForward PhoneForward;
 
 /**

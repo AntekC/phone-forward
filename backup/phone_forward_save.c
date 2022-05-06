@@ -241,6 +241,30 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
     return newPhoneNumber(NULL);
 }
 
+//void phfwdDelete(PhoneForward *pf) {
+//    if (pf != NULL) {
+//        PhoneForward *end = pf->father;
+//
+//        do {
+//            for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
+//                if (pf->child[i] != NULL) {
+//                    PhoneForward *pom1 = pf;
+//                    pf = pf->child[i];
+//                    pom1->child[i] = NULL;
+//                    i = 0;
+//                }
+//            }
+//
+//            if (pf->is_forward) {
+//                free(pf->forward);
+//            }
+//
+//            PhoneForward *pom = pf;
+//            pf = pf->father;
+//            free(pom);
+//        } while (pf != end);
+//    }
+//}
 
 //int main(){
 //

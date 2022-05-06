@@ -1,21 +1,33 @@
+/** @file
+ * Implementacja klasy przechowującej przekierowania numerów telefonicznych
+ *
+ * @author Antoni Bryk <ab438254@mimuw.edu.pl>
+ * @copyright Uniwersytet Warszawski
+ * @date 2022
+ */
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <string.h>
 #include "phone_forward.h"
 
 #define NUMBER_OF_CHILDREN 10
 
+/**
+ * To jest struktura przechowująca przekierowania numerów telefonów.
+ */
 struct PhoneForward {
-    struct PhoneForward *child[NUMBER_OF_CHILDREN];
-    struct PhoneForward *father;
-    char *forward;
-    bool is_forward;
+    struct PhoneForward *child[NUMBER_OF_CHILDREN]; // Tablica wskaźników na dzieci węzła.
+    //struct PhoneForward *father;
+    bool is_forward; // Pole oznaczająca czy dany węzeł jest przekierowaniem.
+    char *forward; // Wskaźnik na numer będący przekierowaniem.
 };
 
+/**
+ * To jest struktura przechowująca ciąg numerów telefonów.
+ */
 struct PhoneNumbers {
-    struct PhoneNumbers *next;
-    char *number;
+    struct PhoneNumbers *next; // Wskaźnik na następny element w liście.
+    char *number; // Wskaźnik na numer telefonu.
 };
 
 /** @brief Wyznacza długość numeru.
@@ -94,7 +106,7 @@ static bool areNumbersIndentical(char const *num1, char const *num2) {
     }
 }
 
-/** @brief Tworzy kopie numeru.
+/** @brief Tworzy kopię numeru.
  * Tworzy kopię numeru @p number.
  * @param[in] number - wskaźnik na napis reprezentujący numer do skopiowania;
  * @return Wskaźnik na napis będący kopią numberu @p number lub NULL, gdy nie
@@ -116,19 +128,17 @@ static char *makeCopy(char const *number) {
 }
 
 /** @brief Tworzy nowy węzeł.
- * Tworzy nowy węzeł struktury PhoneForward z wszytkimi polami oprócz pola father,
- * zainicjalizowanymi na NULL.
- * @param father - wskaźnik na węzeł będący ojcem tworzonego węzła.
+ * Tworzy nowy pusty węzeł struktury PhoneForward z wszytkimi polami zainicjalizowanymi na NULL.
  * @return Wskaźnik na węzeł. Wartość NULL, jeśli nie udało się alokować pamięci.
  */
-static PhoneForward *newNode(PhoneForward *father) {
+static PhoneForward *newNode() {
     PhoneForward *ans = malloc(sizeof(PhoneForward));
     if (ans == NULL) {
         return NULL;
     }
 
     ans->is_forward = false;
-    ans->father = father;
+    //ans->father = father;
     ans->forward = NULL;
     for (int i = 0; i < NUMBER_OF_CHILDREN; ++i) {
         ans->child[i] = NULL;
@@ -156,16 +166,22 @@ static PhoneNumbers *newPhoneNumber(char *number) {
 }
 
 /** @brief Wstawia przekierowanie.
- *
- * @param pf
- * @param num1
- * @param num2
- * @return
+ * Wstawia do struktury pf przekierowanie numerów z prefiksem @p num1, na numer @p num2.
+ * @param[in,out] pf – wskaźnik na strukturę przechowującą przekierowania
+ *                     numerów;
+ * @param[in] num1   – wskaźnik na napis reprezentujący prefiks numerów
+ *                     przekierowywanych;
+ * @param[in] num2   – wskaźnik na napis reprezentujący prefiks numerów,
+ *                     na które jest wykonywane przekierowanie.
+ * @return Wartość @p true, jeśli przekierowanie zostało dodane.
+ *         Wartość @p false, jeśli wystąpił błąd, np. podany napis nie
+ *         reprezentuje numeru, oba podane numery są identyczne lub nie udało
+ *         się alokować pamięci.
  */
 static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
     size_t number1_length = numberLength(num1);
     size_t number2_length = numberLength(num2);
-    //TODO rozbic na zmienne bool
+
     if (pf == NULL || number1_length == 0
         || number2_length == 0 || areNumbersIndentical(num1, num2)) {
 
@@ -173,10 +189,10 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
     }
 
     for (size_t level = 0; level < number1_length; ++level) {
-        int index = num1[level] - '0';//TODO zrobic funkcje charToInt()
+        int index = num1[level] - '0';
 
         if (pf->child[index] == NULL) {
-            pf->child[index] = newNode(pf);
+            pf->child[index] = newNode();
             if (pf->child[index] == NULL) {
                 return false;
             }
@@ -199,33 +215,8 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
 }
 
 PhoneForward *phfwdNew(void) {
-    return newNode(NULL);
+    return newNode();
 }
-
-//void phfwdDelete(PhoneForward *pf) {
-//    if (pf != NULL) {
-//        PhoneForward *end = pf->father;
-//
-//        do {
-//            for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-//                if (pf->child[i] != NULL) {
-//                    PhoneForward *pom1 = pf;
-//                    pf = pf->child[i];
-//                    pom1->child[i] = NULL;
-//                    i = 0;
-//                }
-//            }
-//
-//            if (pf->is_forward) {
-//                free(pf->forward);
-//            }
-//
-//            PhoneForward *pom = pf;
-//            pf = pf->father;
-//            free(pom);
-//        } while (pf != end);
-//    }
-//}
 
 void phfwdDelete(PhoneForward *pf) {
     if (pf != NULL) {
@@ -273,7 +264,7 @@ void phnumDelete(PhoneNumbers *pnum) {
 }
 
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
-    PhoneForward *save = NULL;//TODO zmienic nazwy
+    PhoneForward *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
 
@@ -290,16 +281,16 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
         if (pf->child[index] == NULL) {
             break;
         } else if (pf->child[index]->is_forward) {
-            save = pf->child[index];
+            forward_save = pf->child[index];
             level_save = level;
         }
 
         pf = pf->child[index];
     }
-    if (save == NULL) {
+    if (forward_save == NULL) {
         return newPhoneNumber(makeCopy(num));
     } else {
-        return newPhoneNumber(combineNumbers(save->forward, num + level_save + 1));
+        return newPhoneNumber(combineNumbers(forward_save->forward, num + level_save + 1));
     }
 }
 
