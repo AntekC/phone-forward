@@ -35,8 +35,8 @@ struct PhoneNumbers {
  * @return Długość numeru lub 0 jeśli wskaźnik @p number jest pusty lub,
  *         nie reprezentuje on poprawnego numeru.
  */
-static int numberLength(char const *number) {
-    int answer = 0;
+static size_t numberLength(char const *number) {
+    size_t answer = 0;
     if (number == NULL) {
         return 0;
     }
@@ -80,7 +80,7 @@ static char *combineNumbers(char const *num1, char const *num2) {
 }
 
 /** @brief Sprawdza czy dwa numery są identyczne
- * Sprawdza czy @p num1 jest identyczny jak @p num2.
+ * Sprawdza czy @p num1 jest taki sam jak @p num2.
  * @param[in] num1 - wskaźnik na napis reprezentujący pierwszy numer;
  * @param[in] num2 - wskaźnik na napis reprezentujący drugi numer;
  * @return Wartość @p true, jeśli numery są identyczne.
@@ -171,7 +171,7 @@ static PhoneNumbers *newPhoneNumber(char *number) {
  *                     przekierowywanych;
  * @param[in] num2   – wskaźnik na napis reprezentujący prefiks numerów,
  *                     na które jest wykonywane przekierowanie.
- * @return Wartość @p true, jeśli przekierowanie zostało dodane.
+ * @return Wartość @p true, jeśli udało się wstawić przekierowanie.
  *         Wartość @p false, jeśli wystąpił błąd, np. podany napis nie
  *         reprezentuje numeru, oba podane numery są identyczne lub nie udało
  *         się alokować pamięci.
@@ -265,8 +265,11 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     PhoneForward *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
-
-    if (pf == NULL || number_length == 0) {
+    
+    if (pf == NULL) {
+        return NULL;
+    }
+    if (number_length == 0) {
         return newPhoneNumber(NULL);
     }
 
