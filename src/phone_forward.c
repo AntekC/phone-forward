@@ -10,13 +10,13 @@
 #include <ctype.h>
 #include "phone_forward.h"
 
-#define NUMBER_OF_CHILDREN 10
+#define NUMBER_OF_CHILDREN 10 ///< Liczba synów węzła struktury PhoneForward
 
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
  */
 struct PhoneForward {
-    struct PhoneForward *child[NUMBER_OF_CHILDREN]; // Tablica wskaźników na dzieci węzła.
+    struct PhoneForward *child[NUMBER_OF_CHILDREN]; ///< Tablica wskaźników na dzieci węzła.
     //struct PhoneForward *father;
     bool is_forward; // Pole oznaczająca czy dany węzeł jest przekierowaniem.
     char *forward; // Wskaźnik na numer będący przekierowaniem.
@@ -26,7 +26,7 @@ struct PhoneForward {
  * To jest struktura przechowująca ciąg numerów telefonów.
  */
 struct PhoneNumbers {
-    struct PhoneNumbers *next; // Wskaźnik na następny element w liście.
+    struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
     char *number; // Wskaźnik na numer telefonu.
 };
 
@@ -310,6 +310,8 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     }
 }
 
-PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
+PhoneNumbers *phfwdReverse(
+        __attribute__((unused)) PhoneForward const *pf,
+        __attribute__((unused)) char const *num) {
     return newPhoneNumber(NULL);
 }
