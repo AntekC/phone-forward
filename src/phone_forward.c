@@ -14,6 +14,7 @@
 
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
+ * Ma ona postać drzewa trie.
  */
 struct PhoneForward {
     struct PhoneForward *child[NUMBER_OF_CHILDREN]; ///< Tablica wskaźników na dzieci węzła.
@@ -23,6 +24,7 @@ struct PhoneForward {
 
 /**
  * To jest struktura przechowująca ciąg numerów telefonów.
+ * Ma ona postać listy.
  */
 struct PhoneNumbers {
     struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
@@ -180,12 +182,14 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
     size_t number1_length = numberLength(num1);
     size_t number2_length = numberLength(num2);
 
+    // Sprawdzamy czy dane są poprawne.
     if (pf == NULL || number1_length == 0
         || number2_length == 0 || areNumbersIndentical(num1, num2)) {
 
         return false;
     }
 
+    // Przechodzimy po drzewie trie pf dodając kolejne cyfry z prefiksu num1 jako węzły.
     for (size_t level = 0; level < number1_length; ++level) {
         int index = num1[level] - '0';
 
@@ -199,11 +203,13 @@ static bool insert(PhoneForward *pf, char const *num1, char const *num2) {
         pf = pf->child[index];
     }
 
-    pf->is_forward = true;
+    // Jeżeli było już przekierowanie o prefiksie num1 to je usuwamy.
     if (pf->forward != NULL) {
         free(pf->forward);
     }
 
+    // Wstawiamy nowe przekierowanie.
+    pf->is_forward = true;
     pf->forward = makeCopy(num2);
     if (pf->forward == NULL) {
         return false;
@@ -235,6 +241,7 @@ bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
 void phfwdRemove(PhoneForward *pf, char const *num) {
     size_t number_length = numberLength(num);
 
+    // Sprwadzamy poprawność danych a następnie usuwamy przekierowanie.
     if (pf != NULL && number_length != 0) {
         for (size_t level = 0; level < number_length; ++level) {
             int index = num[level] - '0';
@@ -265,7 +272,8 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     PhoneForward *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
-    
+
+    // Sprawdzamy poprawność danych.
     if (pf == NULL) {
         return NULL;
     }
@@ -273,6 +281,8 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
         return newPhoneNumber(NULL);
     }
 
+    // Szukamy najdłuższego pasującego prefiksu i
+    // zapisujamy jego koniecna wskaźnik forward_save.
     for (size_t level = 0; level < number_length; ++level) {
         int index = num[level] - '0';
 
@@ -285,6 +295,9 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
 
         pf = pf->child[index];
     }
+
+    // Zwracamy przekierowany numer lub otrzymany numer,
+    // jeżeli nie znaleźliśmy przekierowania.
     if (forward_save == NULL) {
         return newPhoneNumber(makeCopy(num));
     } else {
