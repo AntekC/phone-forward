@@ -55,7 +55,7 @@ static size_t numberLength(char const *number) {
     }
 }
 
-/** @brief Tworzy scalenie dwóch numerów
+/** @brief Tworzy scalenie dwóch numerów.
  * Tworzy napis będący scaleniem dwóch numerów @p num1 i @p num2.
  * @param[in] num1 - wskaźnik na napis reprezentujący pierwszy numer do scalenia;
  * @param[in] num2 - wskaźnik na napis reprezentujący drugi numer do scalenia;
@@ -81,7 +81,7 @@ static char *combineNumbers(char const *num1, char const *num2) {
     return ans;
 }
 
-/** @brief Sprawdza czy dwa numery są identyczne
+/** @brief Sprawdza czy dwa numery są identyczne.
  * Sprawdza czy @p num1 jest taki sam jak @p num2.
  * @param[in] num1 - wskaźnik na napis reprezentujący pierwszy numer;
  * @param[in] num2 - wskaźnik na napis reprezentujący drugi numer;
