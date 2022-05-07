@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Phone numbers: Dokumentacja pliku phone_forward.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Phone numbers
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano przez Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Szukaj','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Definicje typów</a> &#124;
+<a href="#func-members">Funkcje</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentacja pliku phone_forward.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Interfejs klasy przechowującej przekierowania numerów telefonicznych.  
+<a href="#details">Więcej...</a></p>
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Wykres zależności załączania dla phone_forward.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h__incl.png" border="0" usemap="#aphone__forward_8h" alt=""/></div>
+<map name="aphone__forward_8h" id="aphone__forward_8h">
+<area shape="rect" title="Interfejs klasy przechowującej przekierowania numerów telefonicznych." alt="" coords="32,5,163,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,88,107"/>
+<area shape="rect" title=" " alt="" coords="112,80,187,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ten wykres pokazuje, które pliki bezpośrednio lub pośrednio załączają ten plik:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h__dep__incl.png" border="0" usemap="#aphone__forward_8hdep" alt=""/></div>
+<map name="aphone__forward_8hdep" id="aphone__forward_8hdep">
+<area shape="rect" title="Interfejs klasy przechowującej przekierowania numerów telefonicznych." alt="" coords="5,5,136,32"/>
+<area shape="rect" href="phone__forward_8c.html" title="Implementacja klasy przechowującej przekierowania numerów telefonicznych." alt="" coords="5,80,136,107"/>
+</map>
+</div>
+</div>
+<p><a href="phone__forward_8h_source.html">Idź do kodu źródłowego tego pliku.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Definicje typów</h2></td></tr>
+<tr class="memitem:aafb7fe417dedef07ddae60c548df5542"><td class="memItemLeft" align="right" valign="top"><a id="aafb7fe417dedef07ddae60c548df5542"></a>
+typedef struct <a class="el" href="structPhoneForward.html">PhoneForward</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#aafb7fe417dedef07ddae60c548df5542">PhoneForward</a></td></tr>
+<tr class="memdesc:aafb7fe417dedef07ddae60c548df5542"><td class="mdescLeft">&#160;</td><td class="mdescRight">To jest definicja struktury <a class="el" href="structPhoneForward.html" title="To jest struktura przechowująca przekierowania numerów telefonów.">PhoneForward</a>. <br /></td></tr>
+<tr class="separator:aafb7fe417dedef07ddae60c548df5542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af03fd91aa576ca5c4764601730faa17f"><td class="memItemLeft" align="right" valign="top"><a id="af03fd91aa576ca5c4764601730faa17f"></a>
+typedef struct <a class="el" href="structPhoneNumbers.html">PhoneNumbers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#af03fd91aa576ca5c4764601730faa17f">PhoneNumbers</a></td></tr>
+<tr class="memdesc:af03fd91aa576ca5c4764601730faa17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">To jest definicja struktury <a class="el" href="structPhoneNumbers.html" title="To jest struktura przechowująca ciąg numerów telefonów.">PhoneNumbers</a>. <br /></td></tr>
+<tr class="separator:af03fd91aa576ca5c4764601730faa17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funkcje</h2></td></tr>
+<tr class="memitem:aaa2e5157c55a6eb50a712861d8aa8a0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPhoneForward.html">PhoneForward</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#aaa2e5157c55a6eb50a712861d8aa8a0f">phfwdNew</a> (void)</td></tr>
+<tr class="memdesc:aaa2e5157c55a6eb50a712861d8aa8a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tworzy nową strukturę.  <a href="phone__forward_8h.html#aaa2e5157c55a6eb50a712861d8aa8a0f">Więcej...</a><br /></td></tr>
+<tr class="separator:aaa2e5157c55a6eb50a712861d8aa8a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a725a0fc198b7e1baec7649057ee3a3db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#a725a0fc198b7e1baec7649057ee3a3db">phfwdDelete</a> (<a class="el" href="structPhoneForward.html">PhoneForward</a> *pf)</td></tr>
+<tr class="memdesc:a725a0fc198b7e1baec7649057ee3a3db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usuwa strukturę.  <a href="phone__forward_8h.html#a725a0fc198b7e1baec7649057ee3a3db">Więcej...</a><br /></td></tr>
+<tr class="separator:a725a0fc198b7e1baec7649057ee3a3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb8f93a16db33469caccd80e87c9beff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#abb8f93a16db33469caccd80e87c9beff">phfwdAdd</a> (<a class="el" href="structPhoneForward.html">PhoneForward</a> *pf, char const *num1, char const *num2)</td></tr>
+<tr class="memdesc:abb8f93a16db33469caccd80e87c9beff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dodaje przekierowanie.  <a href="phone__forward_8h.html#abb8f93a16db33469caccd80e87c9beff">Więcej...</a><br /></td></tr>
+<tr class="separator:abb8f93a16db33469caccd80e87c9beff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6234dc81f9ea0652f9740d2d9bea4522"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#a6234dc81f9ea0652f9740d2d9bea4522">phfwdRemove</a> (<a class="el" href="structPhoneForward.html">PhoneForward</a> *pf, char const *num)</td></tr>
+<tr class="memdesc:a6234dc81f9ea0652f9740d2d9bea4522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usuwa przekierowania.  <a href="phone__forward_8h.html#a6234dc81f9ea0652f9740d2d9bea4522">Więcej...</a><br /></td></tr>
+<tr class="separator:a6234dc81f9ea0652f9740d2d9bea4522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a550d535095014e99c0e2553845b74c6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#a550d535095014e99c0e2553845b74c6a">phfwdGet</a> (<a class="el" href="structPhoneForward.html">PhoneForward</a> const *pf, char const *num)</td></tr>
+<tr class="memdesc:a550d535095014e99c0e2553845b74c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wyznacza przekierowanie numeru.  <a href="phone__forward_8h.html#a550d535095014e99c0e2553845b74c6a">Więcej...</a><br /></td></tr>
+<tr class="separator:a550d535095014e99c0e2553845b74c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea6a9868097ec95f9d7fea5e935a9c2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#aea6a9868097ec95f9d7fea5e935a9c2e">phfwdReverse</a> (<a class="el" href="structPhoneForward.html">PhoneForward</a> const *pf, char const *num)</td></tr>
+<tr class="memdesc:aea6a9868097ec95f9d7fea5e935a9c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wyznacza przekierowania na dany numer.  <a href="phone__forward_8h.html#aea6a9868097ec95f9d7fea5e935a9c2e">Więcej...</a><br /></td></tr>
+<tr class="separator:aea6a9868097ec95f9d7fea5e935a9c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe73f81912cbf3cac133406626eae94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#a7fe73f81912cbf3cac133406626eae94">phnumDelete</a> (<a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> *pnum)</td></tr>
+<tr class="memdesc:a7fe73f81912cbf3cac133406626eae94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usuwa strukturę.  <a href="phone__forward_8h.html#a7fe73f81912cbf3cac133406626eae94">Więcej...</a><br /></td></tr>
+<tr class="separator:a7fe73f81912cbf3cac133406626eae94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d0bf8118567e44a72d930f8354e28d"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phone__forward_8h.html#a74d0bf8118567e44a72d930f8354e28d">phnumGet</a> (<a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> const *pnum, size_t idx)</td></tr>
+<tr class="memdesc:a74d0bf8118567e44a72d930f8354e28d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Udostępnia numer.  <a href="phone__forward_8h.html#a74d0bf8118567e44a72d930f8354e28d">Więcej...</a><br /></td></tr>
+<tr class="separator:a74d0bf8118567e44a72d930f8354e28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Interfejs klasy przechowującej przekierowania numerów telefonicznych. </p>
+<dl class="section author"><dt>Autor</dt><dd>Marcin Peczarski <a href="#" onclick="location.href='mai'+'lto:'+'mar'+'pe'+'@mi'+'mu'+'w.e'+'du'+'.pl'; return false;">marpe<span style="display: none;">.nosp@m.</span>@mim<span style="display: none;">.nosp@m.</span>uw.ed<span style="display: none;">.nosp@m.</span>u.pl</a> </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Uniwersytet Warszawski </dd></dl>
+<dl class="section date"><dt>Data</dt><dd>2022 </dd></dl>
+</div><h2 class="groupheader">Dokumentacja funkcji</h2>
+<a id="abb8f93a16db33469caccd80e87c9beff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb8f93a16db33469caccd80e87c9beff">&#9670;&nbsp;</a></span>phfwdAdd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool phfwdAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneForward.html">PhoneForward</a> *&#160;</td>
+          <td class="paramname"><em>pf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>num1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>num2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dodaje przekierowanie. </p>
+<p>Dodaje przekierowanie wszystkich numerów mających prefiks <code>num1</code>, na numery, w których ten prefiks zamieniono odpowiednio na prefiks <code>num2</code>. Każdy numer jest swoim własnym prefiksem. Jeśli wcześniej zostało dodane przekierowanie z takim samym parametrem <code>num1</code>, to jest ono zastępowane. Relacja przekierowania numerów nie jest przechodnia. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pf</td><td>– wskaźnik na strukturę przechowującą przekierowania numerów; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num1</td><td>– wskaźnik na napis reprezentujący prefiks numerów przekierowywanych; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num2</td><td>– wskaźnik na napis reprezentujący prefiks numerów, na które jest wykonywane przekierowanie. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Wartość <code>true</code>, jeśli przekierowanie zostało dodane. Wartość <code>false</code>, jeśli wystąpił błąd, np. podany napis nie reprezentuje numeru, oba podane numery są identyczne lub nie udało się alokować pamięci. </dd></dl>
+<div class="dynheader">
+Oto graf wywołań dla tej funkcji:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h_abb8f93a16db33469caccd80e87c9beff_cgraph.png" border="0" usemap="#aphone__forward_8h_abb8f93a16db33469caccd80e87c9beff_cgraph" alt=""/></div>
+<map name="aphone__forward_8h_abb8f93a16db33469caccd80e87c9beff_cgraph" id="aphone__forward_8h_abb8f93a16db33469caccd80e87c9beff_cgraph">
+<area shape="rect" title="Dodaje przekierowanie." alt="" coords="5,5,92,32"/>
+<area shape="rect" href="phone__forward_8c.html#a4cd07b6a43f96117bf649ae1d3a6d41a" title="Wstawia przekierowanie." alt="" coords="140,5,199,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a725a0fc198b7e1baec7649057ee3a3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a725a0fc198b7e1baec7649057ee3a3db">&#9670;&nbsp;</a></span>phfwdDelete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void phfwdDelete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneForward.html">PhoneForward</a> *&#160;</td>
+          <td class="paramname"><em>pf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usuwa strukturę. </p>
+<p>Usuwa strukturę wskazywaną przez <code>pf</code>. Nic nie robi, jeśli wskaźnik ten ma wartość NULL. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pf</td><td>– wskaźnik na usuwaną strukturę. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a550d535095014e99c0e2553845b74c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a550d535095014e99c0e2553845b74c6a">&#9670;&nbsp;</a></span>phfwdGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a>* phfwdGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneForward.html">PhoneForward</a> const *&#160;</td>
+          <td class="paramname"><em>pf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wyznacza przekierowanie numeru. </p>
+<p>Wyznacza przekierowanie podanego numeru. Szuka najdłuższego pasującego prefiksu. Wynikiem jest ciąg zawierający co najwyżej jeden numer. Jeśli dany numer nie został przekierowany, to wynikiem jest ciąg zawierający ten numer. Jeśli podany napis nie reprezentuje numeru, wynikiem jest pusty ciąg. Alokuje strukturę <code><a class="el" href="structPhoneNumbers.html" title="To jest struktura przechowująca ciąg numerów telefonów.">PhoneNumbers</a></code>, która musi być zwolniona za pomocą funkcji <a class="el" href="phone__forward_8h.html#a7fe73f81912cbf3cac133406626eae94">phnumDelete</a>. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pf</td><td>– wskaźnik na strukturę przechowującą przekierowania numerów; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num</td><td>– wskaźnik na napis reprezentujący numer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Wskaźnik na strukturę przechowującą ciąg numerów lub NULL, gdy nie udało się alokować pamięci. </dd></dl>
+<div class="dynheader">
+Oto graf wywołań dla tej funkcji:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h_a550d535095014e99c0e2553845b74c6a_cgraph.png" border="0" usemap="#aphone__forward_8h_a550d535095014e99c0e2553845b74c6a_cgraph" alt=""/></div>
+<map name="aphone__forward_8h_a550d535095014e99c0e2553845b74c6a_cgraph" id="aphone__forward_8h_a550d535095014e99c0e2553845b74c6a_cgraph">
+<area shape="rect" title="Wyznacza przekierowanie numeru." alt="" coords="5,81,89,108"/>
+<area shape="rect" href="phone__forward_8c.html#ab00ed5826b0b1972330fd748ecedd934" title="Tworzy scalenie dwóch numerów Tworzy napis będący scaleniem dwóch numerów num1 i num2." alt="" coords="139,5,277,32"/>
+<area shape="rect" href="phone__forward_8c.html#ad6176289531edbe04e9497abe4004e1e" title="Wyznacza długość numeru." alt="" coords="327,56,443,83"/>
+<area shape="rect" href="phone__forward_8c.html#a3a7c7cc3ebaecca79a3c24ac97a8c584" title="Tworzy kopię numeru." alt="" coords="163,107,253,133"/>
+<area shape="rect" href="phone__forward_8c.html#ab5832df9f09c662d59b53ae02f723f50" title="Tworzy nową strukturę." alt="" coords="137,157,279,184"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aaa2e5157c55a6eb50a712861d8aa8a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa2e5157c55a6eb50a712861d8aa8a0f">&#9670;&nbsp;</a></span>phfwdNew()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPhoneForward.html">PhoneForward</a>* phfwdNew </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tworzy nową strukturę. </p>
+<p>Tworzy nową strukturę niezawierającą żadnych przekierowań. </p><dl class="section return"><dt>Zwraca</dt><dd>Wskaźnik na utworzoną strukturę lub NULL, gdy nie udało się alokować pamięci. </dd></dl>
+<div class="dynheader">
+Oto graf wywołań dla tej funkcji:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h_aaa2e5157c55a6eb50a712861d8aa8a0f_cgraph.png" border="0" usemap="#aphone__forward_8h_aaa2e5157c55a6eb50a712861d8aa8a0f_cgraph" alt=""/></div>
+<map name="aphone__forward_8h_aaa2e5157c55a6eb50a712861d8aa8a0f_cgraph" id="aphone__forward_8h_aaa2e5157c55a6eb50a712861d8aa8a0f_cgraph">
+<area shape="rect" title="Tworzy nową strukturę." alt="" coords="5,5,96,32"/>
+<area shape="rect" href="phone__forward_8c.html#ae1b1a3f7c8c5aa1866da21bc9c1f8230" title="Tworzy nowy węzeł." alt="" coords="144,5,227,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6234dc81f9ea0652f9740d2d9bea4522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6234dc81f9ea0652f9740d2d9bea4522">&#9670;&nbsp;</a></span>phfwdRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void phfwdRemove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneForward.html">PhoneForward</a> *&#160;</td>
+          <td class="paramname"><em>pf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usuwa przekierowania. </p>
+<p>Usuwa wszystkie przekierowania, w których parametr <code>num</code> jest prefiksem parametru <code>num1</code> użytego przy dodawaniu. Jeśli nie ma takich przekierowań lub napis nie reprezentuje numeru, nic nie robi. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">pf</td><td>– wskaźnik na strukturę przechowującą przekierowania numerów; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num</td><td>– wskaźnik na napis reprezentujący prefiks numerów. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Oto graf wywołań dla tej funkcji:</div>
+<div class="dyncontent">
+<div class="center"><img src="phone__forward_8h_a6234dc81f9ea0652f9740d2d9bea4522_cgraph.png" border="0" usemap="#aphone__forward_8h_a6234dc81f9ea0652f9740d2d9bea4522_cgraph" alt=""/></div>
+<map name="aphone__forward_8h_a6234dc81f9ea0652f9740d2d9bea4522_cgraph" id="aphone__forward_8h_a6234dc81f9ea0652f9740d2d9bea4522_cgraph">
+<area shape="rect" title="Usuwa przekierowania." alt="" coords="5,31,120,57"/>
+<area shape="rect" href="phone__forward_8c.html#ad6176289531edbe04e9497abe4004e1e" title="Wyznacza długość numeru." alt="" coords="168,5,284,32"/>
+<area shape="rect" href="phone__forward_8c.html#a725a0fc198b7e1baec7649057ee3a3db" title="Usuwa strukturę." alt="" coords="174,56,278,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aea6a9868097ec95f9d7fea5e935a9c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea6a9868097ec95f9d7fea5e935a9c2e">&#9670;&nbsp;</a></span>phfwdReverse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a>* phfwdReverse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneForward.html">PhoneForward</a> const *&#160;</td>
+          <td class="paramname"><em>pf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wyznacza przekierowania na dany numer. </p>
+<p>Wyznacza następujący ciąg numerów: jeśli istnieje numer <code>x</code>, taki że wynik wywołania <code>phfwdGet</code> z numerem <code>x</code> zawiera numer <code>num</code>, to numer <code>x</code> należy do wyniku wywołania <a class="el" href="phone__forward_8h.html#aea6a9868097ec95f9d7fea5e935a9c2e">phfwdReverse</a> z numerem <code>num</code>. Dodatkowo ciąg wynikowy zawsze zawiera też numer <code>num</code>. Wynikowe numery są posortowane leksykograficznie i nie mogą się powtarzać. Jeśli podany napis nie reprezentuje numeru, wynikiem jest pusty ciąg. Alokuje strukturę <code><a class="el" href="structPhoneNumbers.html" title="To jest struktura przechowująca ciąg numerów telefonów.">PhoneNumbers</a></code>, która musi być zwolniona za pomocą funkcji <a class="el" href="phone__forward_8h.html#a7fe73f81912cbf3cac133406626eae94">phnumDelete</a>. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pf</td><td>– wskaźnik na strukturę przechowującą przekierowania numerów; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num</td><td>– wskaźnik na napis reprezentujący numer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Wskaźnik na strukturę przechowującą ciąg numerów lub NULL, gdy nie udało się alokować pamięci. </dd></dl>
+
+</div>
+</div>
+<a id="a7fe73f81912cbf3cac133406626eae94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe73f81912cbf3cac133406626eae94">&#9670;&nbsp;</a></span>phnumDelete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void phnumDelete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> *&#160;</td>
+          <td class="paramname"><em>pnum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usuwa strukturę. </p>
+<p>Usuwa strukturę wskazywaną przez <code>pnum</code>. Nic nie robi, jeśli wskaźnik ten ma wartość NULL. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pnum</td><td>– wskaźnik na usuwaną strukturę. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a74d0bf8118567e44a72d930f8354e28d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d0bf8118567e44a72d930f8354e28d">&#9670;&nbsp;</a></span>phnumGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char const* phnumGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPhoneNumbers.html">PhoneNumbers</a> const *&#160;</td>
+          <td class="paramname"><em>pnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Udostępnia numer. </p>
+<p>Udostępnia wskaźnik na napis reprezentujący numer. Napisy są indeksowane kolejno od zera. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pnum</td><td>– wskaźnik na strukturę przechowującą ciąg numerów telefonów; </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idx</td><td>– indeks numeru telefonu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Wskaźnik na napis reprezentujący numer telefonu. Wartość NULL, jeśli wskaźnik <code>pnum</code> ma wartość NULL lub indeks ma za dużą wartość. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Wygenerowano So, 7 maj 2022 13:32:12 dla Phone numbers programem&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

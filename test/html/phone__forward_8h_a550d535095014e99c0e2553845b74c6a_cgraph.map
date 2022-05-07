@@ -1,0 +1,7 @@
+<map id="phfwdGet" name="phfwdGet">
+<area shape="rect" id="node1" title="Wyznacza przekierowanie numeru." alt="" coords="5,81,89,108"/>
+<area shape="rect" id="node2" href="$phone__forward_8c.html#ab00ed5826b0b1972330fd748ecedd934" title="Tworzy scalenie dwóch numerów Tworzy napis będący scaleniem dwóch numerów num1 i num2." alt="" coords="139,5,277,32"/>
+<area shape="rect" id="node3" href="$phone__forward_8c.html#ad6176289531edbe04e9497abe4004e1e" title="Wyznacza długość numeru." alt="" coords="327,56,443,83"/>
+<area shape="rect" id="node4" href="$phone__forward_8c.html#a3a7c7cc3ebaecca79a3c24ac97a8c584" title="Tworzy kopię numeru." alt="" coords="163,107,253,133"/>
+<area shape="rect" id="node5" href="$phone__forward_8c.html#ab5832df9f09c662d59b53ae02f723f50" title="Tworzy nową strukturę." alt="" coords="137,157,279,184"/>
+</map>

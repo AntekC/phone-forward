@@ -1,0 +1,7 @@
+<map id="insert" name="insert">
+<area shape="rect" id="node1" title="Wstawia przekierowanie." alt="" coords="5,81,64,108"/>
+<area shape="rect" id="node2" href="$phone__forward_8c.html#aeeb52653177dbe31892575553a1503d4" title="Sprawdza czy dwa numery są identyczne Sprawdza czy num1 jest taki sam jak num2." alt="" coords="112,5,279,32"/>
+<area shape="rect" id="node3" href="$phone__forward_8c.html#ad6176289531edbe04e9497abe4004e1e" title="Wyznacza długość numeru." alt="" coords="327,56,443,83"/>
+<area shape="rect" id="node4" href="$phone__forward_8c.html#a3a7c7cc3ebaecca79a3c24ac97a8c584" title="Tworzy kopię numeru." alt="" coords="150,107,241,133"/>
+<area shape="rect" id="node5" href="$phone__forward_8c.html#ae1b1a3f7c8c5aa1866da21bc9c1f8230" title="Tworzy nowy węzeł." alt="" coords="154,157,237,184"/>
+</map>
