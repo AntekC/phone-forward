@@ -250,7 +250,11 @@ void phfwdDelete(PhoneForward *pf) {
 }
 
 bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
-    return(insert(pf->forward,pf->reverse,num1,num2,false) && insert(pf->reverse,pf->reverse,num2,num1,true));
+    if(pf == NULL){
+        return false;
+    } else {
+        return(insert(pf->forward,pf->reverse,num1,num2,false) && insert(pf->reverse,pf->reverse,num2,num1,true));
+    }
 }
 
 void phfwdRemove(PhoneForward *pf, char const *num) {
