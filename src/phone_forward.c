@@ -329,9 +329,11 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
 
 void phnumDeleteFirstNumber(PhoneNumbers **pnum){
     if((*pnum)->next == NULL){
-        free((*pnum)->number);
-        free((*pnum));
+        PhoneNumbers *save = *pnum;
         (*pnum) = NULL;
+        free(save->number);
+        free(save);
+
     } else {
         PhoneNumbers *save = *pnum;
         *pnum = (*pnum)->next;
