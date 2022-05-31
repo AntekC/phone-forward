@@ -259,10 +259,11 @@ bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
 
 void phfwdRemove(PhoneForward *pf, char const *num) {
     size_t number_length = numberLength(num);
-    Trie *forward = pf->forward;
 
     // Sprwadzamy poprawność danych a następnie usuwamy przekierowanie.
     if (pf != NULL && number_length != 0) {
+
+        Trie *forward = pf->forward;
         for (size_t level = 0; level < number_length; ++level) {
             int index = num[level] - '0';
 
@@ -292,7 +293,7 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     if (pf == NULL) {
         return NULL;
     }
-    
+
     Trie *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
