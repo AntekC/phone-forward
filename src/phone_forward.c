@@ -125,7 +125,7 @@ bool startsWith(char const *number, char const *prefix){
     size_t prefix_length = numberLength(prefix);
     size_t number_length = numberLength(number);
     if(prefix_length > number_length){
-        printf("lalala");
+        return true;
     }
 
     for(size_t i = 0; i < prefix_length; ++i){
