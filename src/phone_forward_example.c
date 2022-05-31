@@ -26,6 +26,17 @@ int main() {
   assert(phnumGet(pnum, 1) == NULL);
   phnumDelete(pnum);
 
+//    strcpy(num1, "554");
+//    strcpy(num2, "9");
+//    assert(phfwdAdd(pf, num1, num2) == true);
+//
+//    strcpy(num1, "5545");
+//    strcpy(num2, "9");
+//    assert(phfwdAdd(pf, num1, num2) == true);
+//
+//    phfwdRemove(pf, "5");
+
+
   pnum = phfwdGet(pf, "12");
   assert(strcmp(phnumGet(pnum, 0), "12") == 0);
   phnumDelete(pnum);
@@ -135,9 +146,9 @@ int main() {
   pnum = phfwdGet(pf, "7581");
   assert(strcmp(phnumGet(pnum, 0), "7581") == 0);
   phnumDelete(pnum);
-  // pnum = phfwdReverse(pf, "7581");
-  // assert(strcmp(phnumGet(pnum, 0), "7581") == 0);
-  // assert(phnumGet(pnum, 1) == NULL);
-  // phnumDelete(pnum);
+//   pnum = phfwdReverse(pf, "7581");
+//   assert(strcmp(phnumGet(pnum, 0), "7581") == 0);
+//   assert(phnumGet(pnum, 1) == NULL);
+//   phnumDelete(pnum);
   phfwdDelete(pf);
 }

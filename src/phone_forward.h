@@ -25,7 +25,10 @@ typedef struct PhoneForward PhoneForward;
 /**
  * To jest struktura przechowująca ciąg numerów telefonów.
  */
-struct PhoneNumbers;
+struct PhoneNumbers {
+    struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
+    char *number; // Wskaźnik na numer telefonu.
+};
 /**
  * To jest definicja struktury PhoneNumbers.
  */
@@ -119,5 +122,13 @@ void phnumDelete(PhoneNumbers *pnum);
  *         wskaźnik @p pnum ma wartość NULL lub indeks ma za dużą wartość.
  */
 char const * phnumGet(PhoneNumbers const *pnum, size_t idx);
+
+void phnumDeleteFirstNumber(PhoneNumbers **pnum);
+
+void phnumDeleteNumber(PhoneNumbers *pnum, char const *number);
+
+void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix);
+
+bool startsWith(char const *number, char const *prefix);
 
 #endif /* __PHONE_FORWARD_H__ */
