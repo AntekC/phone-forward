@@ -15,6 +15,7 @@ int main() {
 
   pf = phfwdNew();
 
+
   strcpy(num1, "123");
   strcpy(num2, "9");
   assert(phfwdAdd(pf, num1, num2) == true);
