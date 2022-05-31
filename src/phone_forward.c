@@ -245,8 +245,7 @@ void phfwdDelete(PhoneForward *pf) {
         if(pf->reverse != NULL){
             deleteTrie(pf->reverse);
         }
-        //TODO
-
+        free(pf);
     }
 }
 
