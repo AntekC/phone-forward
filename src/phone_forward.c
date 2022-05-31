@@ -289,15 +289,15 @@ void phnumDelete(PhoneNumbers *pnum) {
 }
 
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
+    if (pf == NULL) {
+        return NULL;
+    }
+    
     Trie *forward_save = NULL;
     size_t level_save = 0;
     size_t number_length = numberLength(num);
     Trie *forward = pf->forward;
 
-    // Sprawdzamy poprawność danych.
-    if (pf == NULL) {
-        return NULL;
-    }
     if (number_length == 0) {
         return newPhoneNumber(NULL);
     }
