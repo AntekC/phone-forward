@@ -331,7 +331,7 @@ void phnumDeleteFirstNumber(PhoneNumbers **pnum){
     if((*pnum)->next == NULL){
         free((*pnum)->number);
         free((*pnum));
-        //(*pnum) = NULL;
+        (*pnum) = NULL;
     } else {
         PhoneNumbers *save = *pnum;
         *pnum = (*pnum)->next;
