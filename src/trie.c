@@ -177,7 +177,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
     size_t number2_length = numberLength(num2);
 
     // Sprawdzamy czy dane są poprawne.
-    if (trie == NULL || number1_length == 0
+    if (trie == NULL || reverse_trie == NULL || number1_length == 0
         || number2_length == 0 || areNumbersIndentical(num1, num2)) {
 
         return false;
