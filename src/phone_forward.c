@@ -81,9 +81,11 @@ void phnumDeleteNumber(PhoneNumbers *pnum, char const *number) {
     if (pnum != NULL) {
         PhoneNumbers *prev = pnum;
         pnum = pnum->next;
+
         while (pnum != NULL) {
             if (areNumbersIndentical(pnum->number, number)) {
                 prev->next = pnum->next;
+
                 free(pnum->number);
                 free(pnum);
                 break;
@@ -96,18 +98,22 @@ void phnumDeleteNumber(PhoneNumbers *pnum, char const *number) {
 }
 
 void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix) {
-    PhoneNumbers *prev = pnum;
-    pnum = pnum->next;
-    while (pnum != NULL) {
-        if (startsWith(pnum->number, prefix)) {
-            prev->next = pnum->next;
-            PhoneNumbers *save = pnum;
-            pnum = pnum->next;
-            free(save->number);
-            free(save);
-        } else {
-            prev = pnum;
-            pnum = pnum->next;
+    if(pnum != NULL) {
+        PhoneNumbers *prev = pnum;
+        pnum = pnum->next;
+
+        while (pnum != NULL) {
+            if (startsWith(pnum->number, prefix)) {
+                prev->next = pnum->next;
+                PhoneNumbers *save = pnum;
+                pnum = pnum->next;
+
+                free(save->number);
+                free(save);
+            } else {
+                prev = pnum;
+                pnum = pnum->next;
+            }
         }
     }
 }
@@ -277,16 +283,6 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
         getFromReverse(pf->reverse, num, &ans);
         return ans;
     } else {
-        char *number_to_give = makeCopy(num);
-        if (number_to_give == NULL) {
-            return NULL;
-        }
-        ans = newPhoneNumber(number_to_give);
-        if (ans == NULL) {
-            free(number_to_give);
-            return NULL;
-        }
-
-        return ans;
+        return NULL;
     }
 }
