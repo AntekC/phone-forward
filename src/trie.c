@@ -208,7 +208,7 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
             break;
         } else {
             if(reverse->child[index]->numbers != NULL){
-                if(!addNumbers(reverse->child[index]->numbers, &wynik)){
+                if(!addNumbers(reverse->child[index]->numbers, &wynik, level, num)){
                     phnumDelete(wynik);
                     return NULL;
                 }

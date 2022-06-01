@@ -129,6 +129,6 @@ void phnumDeleteNumber(PhoneNumbers *pnum, char const *number);
 
 void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix);
 
-bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans);
+bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num);
 
 #endif /* __PHONE_FORWARD_H__ */

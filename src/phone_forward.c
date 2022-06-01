@@ -245,8 +245,8 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     }
 }
 
-bool insertNotFirstNumber(PhoneNumbers *ans, char const *number){
-    char *number_to_insert = makeCopy(number);
+bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,char const *num){
+    char *number_to_insert = combineNumbers(number,num+level+1);
     if(number_to_insert == NULL){
         return false;
     }
@@ -260,7 +260,10 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number){
     ans = ans->next;
 
     while(ans != NULL){
-        if(isHigher(ans->number,number_to_insert)){
+        if(areNumbersIndentical(ans->number,number_to_insert)){
+            free(number_to_insert);
+            return true;
+        } else if(isHigher(ans->number,number_to_insert)){
             prev->next = insert;
             insert->next = ans;
             return true;
@@ -273,10 +276,15 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number){
     return true;
 }
 
-bool insertFirstNumber(PhoneNumbers **ans, char const *number){
-    char *number_to_insert = makeCopy(number);
+bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, char const *num){
+    char *number_to_insert = combineNumbers(number,num+level+1);
     if(number_to_insert == NULL){
         return false;
+    }
+    // Już jest taki numer
+    if(areNumbersIndentical(number_to_insert,(*ans)->number)){
+        free(number_to_insert);
+        return true;
     }
 
     if((*ans) != NULL){
@@ -293,12 +301,12 @@ bool insertFirstNumber(PhoneNumbers **ans, char const *number){
     }
 }
 
-bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans){
+bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num){
     while(numbers != NULL){
         if(isHigher((*ans)->number,numbers->number)){
-            insertFirstNumber(ans,numbers->number); //TODO MOZE WYWALIC BLAD
+            insertFirstNumber(ans,numbers->number, level, num); //TODO MOZE WYWALIC BLAD
         } else {
-            insertNotFirstNumber(*ans,numbers->number);
+            insertNotFirstNumber(*ans,numbers->number, level, num);
         }
         numbers = numbers->next;
     }
