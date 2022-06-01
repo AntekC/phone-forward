@@ -178,3 +178,49 @@ void deleteForwardTrie(Trie *trie, Trie *reverse_trie, char const *num){
     }
 }
 
+bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
+    size_t number_lentgh = numberLength(num);
+    char *original_number = makeCopy(num);
+    PhoneNumbers *wynik = NULL;
+
+    if(number_lentgh == 0){
+        wynik = newPhoneNumber(NULL);
+        (*ans) = wynik;
+        return false;
+    }
+
+
+    if(original_number == NULL){
+        (*ans) = wynik;
+        return false;
+    }
+
+    wynik = newPhoneNumber(original_number);
+    if(wynik == NULL){
+        free(original_number);
+        return false;
+    }
+
+    for (size_t level = 0; level < number_lentgh; ++level) {
+        int index = num[level] - '0';
+
+        if (reverse->child[index] == NULL) {
+            break;
+        } else {
+            if(reverse->child[index]->numbers != NULL){
+                if(!addNumbers(reverse->child[index]->numbers, &wynik)){
+                    phnumDelete(wynik);
+                    return NULL;
+                }
+            }
+        }
+
+        reverse = reverse->child[index];
+    }
+
+    (*ans) = wynik;
+    return true;
+
+
+}
+

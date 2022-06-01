@@ -245,9 +245,74 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     }
 }
 
+bool insertNotFirstNumber(PhoneNumbers *ans, char const *number){
+    char *number_to_insert = makeCopy(number);
+    if(number_to_insert == NULL){
+        return false;
+    }
+    PhoneNumbers *insert = newPhoneNumber(number_to_insert);
+    if(insert == NULL){
+        free(number_to_insert);
+        return false;
+    }
 
-PhoneNumbers *phfwdReverse(
-        __attribute__((unused)) PhoneForward const *pf,
-        __attribute__((unused)) char const *num) {
-    return NULL;
+    PhoneNumbers *prev = ans;
+    ans = ans->next;
+
+    while(ans != NULL){
+        if(isHigher(ans->number,number_to_insert)){
+            prev->next = insert;
+            insert->next = ans;
+            return true;
+        } else {
+            prev = ans;
+            ans = ans->next;
+        }
+    }
+    prev->next = insert;
+    return true;
+}
+
+bool insertFirstNumber(PhoneNumbers **ans, char const *number){
+    char *number_to_insert = makeCopy(number);
+    if(number_to_insert == NULL){
+        return false;
+    }
+
+    if((*ans) != NULL){
+        PhoneNumbers *new = newPhoneNumber(number_to_insert);
+        if(new == NULL){
+            free(number_to_insert);
+            return false;
+        }
+        new->next = (*ans);
+        (*ans) = new;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans){
+    while(numbers != NULL){
+        if(isHigher((*ans)->number,numbers->number)){
+            insertFirstNumber(ans,numbers->number); //TODO MOZE WYWALIC BLAD
+        } else {
+            insertNotFirstNumber(*ans,numbers->number);
+        }
+        numbers = numbers->next;
+    }
+    return true;
+}
+
+PhoneNumbers *phfwdReverse( PhoneForward const *pf,char const *num) {
+
+    PhoneNumbers *ans;
+
+    if (pf != NULL){
+       giveReverse(pf->reverse,num,&ans);
+       return ans;
+    } else {
+        return NULL; //TODO to zmienic zeby dawalo num
+    }
 }

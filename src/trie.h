@@ -24,5 +24,6 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
 
 bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, bool reverse);
 
+bool giveReverse(Trie *reverse, char const *num,  PhoneNumbers **ans);
 
 #endif //PHONE_NUMBERS_TRIE_H

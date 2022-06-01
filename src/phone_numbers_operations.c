@@ -7,6 +7,15 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+
+static size_t min(size_t a, size_t b){
+    if(a > b){
+        return a;
+    } else {
+        return b;
+    }
+}
+
 /** @brief Wyznacza długość numeru.
  * Wyznacza długość numeru @p number.
  * @param[in] number - wskaźnik na napis reprezentujący numer.
@@ -120,4 +129,23 @@ bool startsWith(char const *number, char const *prefix){
         }
     }
     return true;
+}
+
+bool isHigher(char const *num1, char const *num2){
+    size_t number1_lentgh = numberLength(num1);
+    size_t number2_lentgh = numberLength(num2);
+
+    for(size_t i = 0; i < min(number1_lentgh, number2_lentgh); ++i){
+        if(*num1 > *num2){
+            return true;
+        } else if(*num1 < *num2){
+            return false;
+        } else {
+            ++num1;
+            ++num2;
+        }
+    }
+
+    return (number1_lentgh > number2_lentgh);
+
 }

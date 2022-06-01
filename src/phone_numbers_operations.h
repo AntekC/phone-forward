@@ -16,6 +16,7 @@ bool areNumbersIndentical(char const *num1, char const *num2);
 char *makeCopy(char const *number);
 bool startsWith(char const *number, char const *prefix);
 
+bool isHigher(char const *num1, char const *num2);
 
 
 #endif //PHONE_NUMBERS_PHONE_NUMBERS_OPERATIONS_H
