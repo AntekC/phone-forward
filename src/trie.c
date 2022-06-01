@@ -45,16 +45,18 @@ void deleteAllNumberStartingWith(Trie *reverse, char const *number_reverse, char
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(number_reverse[level]); // TODO wywalić indeksy
+        int index = digitToIndex(number_reverse[level]);
         reverse = reverse->child[index];
     }
 
-    if(phnumGet(reverse->numbers,1) != NULL){
-        phnumDeleteAllNumbersStarting(reverse->numbers,prefix);
-    }
+    if(reverse != NULL) {
+        if (phnumGet(reverse->numbers, 1) != NULL) {
+            phnumDeleteAllNumbersStarting(reverse->numbers, prefix);
+        }
 
-    if(startsWith(phnumGet(reverse->numbers,0),prefix)){
-        phnumDeleteFirstNumber(&reverse->numbers);
+        if (startsWith(phnumGet(reverse->numbers, 0), prefix)) {
+            phnumDeleteFirstNumber(&reverse->numbers);
+        }
     }
 
 }
@@ -149,7 +151,7 @@ void deleteForwardTrie(Trie *trie, Trie *reverse_trie, char const *num){
     }
 }
 
-bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
+bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
     size_t number_lentgh = numberLength(num);
     char *original_number = makeCopy(num);
     PhoneNumbers *wynik = NULL;
@@ -160,8 +162,6 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
         (*ans) = wynik;
         return false;
     }
-
-
     if(original_number == NULL){
         (*ans) = wynik;
         return false;
@@ -178,7 +178,9 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
 
         if (reverse->child[index] == NULL) {
             break;
+
         } else {
+
             if(reverse->child[index]->numbers != NULL){
                 if(!addNumbers(reverse->child[index]->numbers, &wynik, level, num)){
                     phnumDelete(wynik);
@@ -186,12 +188,99 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
                 }
             }
         }
-
         reverse = reverse->child[index];
     }
 
     (*ans) = wynik;
     return true;
+}
+
+void removeFromForward(Trie *forward, Trie *reverse, char const *num){
+    size_t number_length = numberLength(num);
+
+    if(forward != NULL && reverse != NULL){
+        for (size_t level = 0; level < number_length; ++level) {
+            int index = digitToIndex(num[level]);
+
+            if (level == number_length - 1) {
+                deleteForwardTrie(forward->child[index],reverse,num);
+                forward->child[index] = NULL;
+                break;
+            } else if (forward->child[index] == NULL) {
+                break;
+            }
+
+            forward = forward->child[index];
+        }
+    }
+}
+
+bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans){
+    PhoneNumbers *ans_buff = NULL; //TODO Zmienić nazwę
+    size_t level_save = 0;
+    size_t number_length = numberLength(num);
+    Trie *forward_save = NULL;
+
+    if(forward == NULL){
+        (*ans) = ans_buff;
+        return false;
+    }
+
+    if(number_length == 0){
+        ans_buff = newPhoneNumber(NULL);
+        (*ans) = ans_buff;
+        return false;
+    }
+
+    for (size_t level = 0; level < number_length; ++level) {
+        int index = digitToIndex(num[level]);
+
+        if (forward->child[index] == NULL) {
+            break;
+        } else if (forward->child[index]->numbers != NULL) {
+            forward_save = forward->child[index];
+            level_save = level;
+        }
+
+        forward = forward->child[index];
+    }
+
+    if (forward_save == NULL){
+        char *number_to_give = makeCopy(num);
+
+        if(number_to_give == NULL){
+            (*ans) = ans_buff;
+            return false;
+        }
+
+        ans_buff = newPhoneNumber(number_to_give);
+
+        if(ans_buff == NULL){
+            free(number_to_give);
+            (*ans) = ans_buff;
+            return false;
+        } else {
+            (*ans) = ans_buff;
+            return true;
+        }
+    } else {
+        char *number_to_give = combineNumbers(phnumGet(forward_save->numbers,0),num+level_save+1);
+
+        if(number_to_give == NULL){
+            (*ans) = ans_buff;
+            return false;
+        }
+
+        ans_buff = newPhoneNumber(number_to_give);
+
+        if(ans == NULL){
+            free(number_to_give);
+            return false;
+        } else {
+            (*ans) = ans_buff;
+            return true;
+        }
+    }
 
 
 }

@@ -23,7 +23,7 @@ void printTestSuccess(int testNumber) {
 int main(int argc, char **argv) {
     bool testReverse = true;
 
-//    if(isHigher("5","51")){
+//    if(compareNumbers("5","51")){
 //        printf("lala");
 //    } else {
 //        printf("nono");

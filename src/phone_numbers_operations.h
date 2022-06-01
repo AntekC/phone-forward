@@ -11,12 +11,16 @@
 
 //TODO skomentowac to
 size_t numberLength(char const *number);
+
 char *combineNumbers(char const *num1, char const *num2);
+
 bool areNumbersIndentical(char const *num1, char const *num2);
+
 char *makeCopy(char const *number);
+
 bool startsWith(char const *number, char const *prefix);
 
-bool isHigher(char const *num1, char const *num2);
+bool compareNumbers(char const *num1, char const *num2);
 
 int digitToIndex(char digit);
 

@@ -7,7 +7,6 @@
  */
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <ctype.h>
 #include "phone_forward.h"
 #include "phone_numbers_operations.h"
@@ -16,11 +15,11 @@
 
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
- * Ma ona postać drzewa trie.
+ * Składa się ona z dwóch dzrzew trie.
  */
 struct PhoneForward {
-    Trie *forward;
-    Trie *reverse;
+    Trie *forward; ///< Wskaźnik na drzewo trie przekierowań.
+    Trie *reverse; ///< Wskaźnik na drzewo trie odwróconych przekierowań.
 };
 
 struct PhoneNumbers {
@@ -63,11 +62,69 @@ bool add_next(PhoneNumbers *numbers, char *num) {
     }
 }
 
+bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,char const *num){
+    char *number_to_insert = combineNumbers(number,num+level+1);
+    if(number_to_insert == NULL){
+        return false;
+    }
+    PhoneNumbers *insert = newPhoneNumber(number_to_insert);
+    if(insert == NULL){
+        free(number_to_insert);
+        return false;
+    }
+
+    PhoneNumbers *prev = ans;
+    ans = ans->next;
+
+    while(ans != NULL){
+        if(areNumbersIndentical(ans->number,number_to_insert)){
+            phnumDelete(insert);
+            return true;
+        } else if(compareNumbers(ans->number, number_to_insert)){
+            prev->next = insert;
+            insert->next = ans;
+            return true;
+        } else {
+            prev = ans;
+            ans = ans->next;
+        }
+    }
+    prev->next = insert;
+    return true;
+}
+
+bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, char const *num){
+    char *number_to_insert = combineNumbers(number,num+level+1);
+    if(number_to_insert == NULL){
+        return false;
+    }
+
+    // Już jest taki numer w wyniku zatem nie trzeba go dodawać.
+    if(areNumbersIndentical(number_to_insert,(*ans)->number)){
+        free(number_to_insert);
+        return true;
+    }
+
+    if((*ans) != NULL){
+        PhoneNumbers *new = newPhoneNumber(number_to_insert);
+        if(new == NULL){
+            free(number_to_insert);
+            return false;
+        }
+        new->next = (*ans);
+        (*ans) = new;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 PhoneForward *phfwdNew(void) {
     PhoneForward *ans = malloc(sizeof(PhoneForward));
     if(ans == NULL){
         return NULL;
     }
+
     ans->forward = newNode();
     if (ans->forward == NULL) {
         free(ans);
@@ -105,25 +162,8 @@ bool phfwdAdd(PhoneForward *pf, char const *num1, char const *num2) {
 }
 
 void phfwdRemove(PhoneForward *pf, char const *num) {
-    size_t number_length = numberLength(num);
-
-    // Sprwadzamy poprawność danych a następnie usuwamy przekierowanie.
-    if (pf != NULL && number_length != 0) {
-
-        Trie *forward = pf->forward;
-        for (size_t level = 0; level < number_length; ++level) {
-            int index = digitToIndex(num[level]);
-
-            if (level == number_length - 1) {
-                deleteForwardTrie(forward->child[index],pf->reverse,num);
-                forward->child[index] = NULL;
-                break;
-            } else if (forward->child[index] == NULL) {
-                break;
-            }
-
-            forward = forward->child[index];
-        }
+    if (pf != NULL) {
+        removeFromForward(pf->forward,pf->reverse,num);
     }
 }
 
@@ -139,65 +179,69 @@ void phnumDelete(PhoneNumbers *pnum) {
 
 //TODO WYWALIC TO DO TRIE
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
-    if (pf == NULL) {
-        return NULL;
+    PhoneNumbers *ans = NULL;
+    if (pf != NULL && pf->forward != NULL) {
+        getFromForward(pf->forward, num, &ans);
     }
 
-    Trie *forward_save = NULL;
-    size_t level_save = 0;
-    size_t number_length = numberLength(num);
-    Trie *forward = pf->forward;
+    return ans;
 
-    if (number_length == 0) {
-        return newPhoneNumber(NULL);
-    }
 
-    // Szukamy najdłuższego pasującego prefiksu i
-    // zapisujamy jego koniecna wskaźnik forward_save.
-    for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(num[level]); // TODO wywalić indeksy
-
-        if (forward->child[index] == NULL) {
-            break;
-        } else if (forward->child[index]->numbers != NULL) {
-            forward_save = forward->child[index];
-            level_save = level;
-        }
-
-        forward = forward->child[index];
-    }
-
-    // Zwracamy przekierowany numer lub otrzymany numer,
-    // jeżeli nie znaleźliśmy przekierowania.
-    if (forward_save == NULL) {
-        char *number_to_make = makeCopy(num);
-        if(number_to_make == NULL){
-            return  NULL;
-        }
-
-        PhoneNumbers *ans = newPhoneNumber((number_to_make));
-        if(ans == NULL){
-            free(number_to_make);
-            return NULL;
-        } else {
-            return ans;
-        }
-
-    } else {
-        char *number_to_make = combineNumbers(forward_save->numbers->number, num + level_save + 1);
-        if(number_to_make == NULL){
-            return NULL;
-        }
-
-        PhoneNumbers *ans = newPhoneNumber(number_to_make);
-        if(ans == NULL){
-            free(number_to_make);
-            return NULL;
-        } else {
-            return ans;
-        }
-
-    }
+//    Trie *forward_save = NULL;
+//    size_t level_save = 0;
+//    size_t number_length = numberLength(num);
+//    Trie *forward = pf->forward;
+//
+//    if (number_length == 0) {
+//        return newPhoneNumber(NULL);
+//    }
+//
+//    // Szukamy najdłuższego pasującego prefiksu i
+//    // zapisujamy jego koniecna wskaźnik forward_save.
+//    for (size_t level = 0; level < number_length; ++level) {
+//        int index = digitToIndex(num[level]); // TODO wywalić indeksy
+//
+//        if (forward->child[index] == NULL) {
+//            break;
+//        } else if (forward->child[index]->numbers != NULL) {
+//            forward_save = forward->child[index];
+//            level_save = level;
+//        }
+//
+//        forward = forward->child[index];
+//    }
+//
+//    // Zwracamy przekierowany numer lub otrzymany numer,
+//    // jeżeli nie znaleźliśmy przekierowania.
+//    if (forward_save == NULL) {
+//        char *number_to_make = makeCopy(num);
+//        if(number_to_make == NULL){
+//            return  NULL;
+//        }
+//
+//        PhoneNumbers *ans = newPhoneNumber((number_to_make));
+//        if(ans == NULL){
+//            free(number_to_make);
+//            return NULL;
+//        } else {
+//            return ans;
+//        }
+//
+//    } else {
+//        char *number_to_make = combineNumbers(forward_save->numbers->number, num + level_save + 1);
+//        if(number_to_make == NULL){
+//            return NULL;
+//        }
+//
+//        PhoneNumbers *ans = newPhoneNumber(number_to_make);
+//        if(ans == NULL){
+//            free(number_to_make);
+//            return NULL;
+//        } else {
+//            return ans;
+//        }
+//
+//    }
 }
 
 void phnumDeleteFirstNumber(PhoneNumbers **pnum){
@@ -268,65 +312,9 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     }
 }
 
-bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,char const *num){
-    char *number_to_insert = combineNumbers(number,num+level+1);
-    if(number_to_insert == NULL){
-        return false;
-    }
-    PhoneNumbers *insert = newPhoneNumber(number_to_insert);
-    if(insert == NULL){
-        free(number_to_insert);
-        return false;
-    }
-
-    PhoneNumbers *prev = ans;
-    ans = ans->next;
-
-    while(ans != NULL){
-        if(areNumbersIndentical(ans->number,number_to_insert)){
-            phnumDelete(insert);
-            return true;
-        } else if(isHigher(ans->number,number_to_insert)){
-            prev->next = insert;
-            insert->next = ans;
-            return true;
-        } else {
-            prev = ans;
-            ans = ans->next;
-        }
-    }
-    prev->next = insert;
-    return true;
-}
-
-bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, char const *num){
-    char *number_to_insert = combineNumbers(number,num+level+1);
-    if(number_to_insert == NULL){
-        return false;
-    }
-    // Już jest taki numer
-    if(areNumbersIndentical(number_to_insert,(*ans)->number)){
-        free(number_to_insert);
-        return true;
-    }
-
-    if((*ans) != NULL){
-        PhoneNumbers *new = newPhoneNumber(number_to_insert);
-        if(new == NULL){
-            free(number_to_insert);
-            return false;
-        }
-        new->next = (*ans);
-        (*ans) = new;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num){
     while(numbers != NULL){
-        if(isHigher((*ans)->number,numbers->number)){
+        if(compareNumbers((*ans)->number, numbers->number)){
             insertFirstNumber(ans,numbers->number, level, num); //TODO MOZE WYWALIC BLAD
         } else {
             insertNotFirstNumber(*ans,numbers->number, level, num);
@@ -341,7 +329,7 @@ PhoneNumbers *phfwdReverse( PhoneForward const *pf,char const *num) {
     PhoneNumbers *ans;
 
     if (pf != NULL){
-       giveReverse(pf->reverse,num,&ans);
+        getFromReverse(pf->reverse, num, &ans);
        return ans;
     } else {
         return NULL; //TODO to zmienic zeby dawalo num

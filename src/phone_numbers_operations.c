@@ -17,6 +17,10 @@ static size_t min(size_t a, size_t b){
     }
 }
 
+static int compareDigit(char digit1, char digit2){
+    return (digitToIndex(digit1) - digitToIndex(digit2));
+}
+
 /** @brief Wyznacza długość numeru.
  * Wyznacza długość numeru @p number.
  * @param[in] number - wskaźnik na napis reprezentujący numer.
@@ -124,6 +128,13 @@ char *makeCopy(char const *number) {
     return ans;
 }
 
+/** @brief Sprawdza czy numer zaczyn się danego prefixu.
+ * Sprawdza czy @p number zaczyna się od prefixu @p prefix.
+ * @param[in] number - wskaźnik na napis reprezentujący numer;
+ * @param[in] prefix - wskaźnik na napis reprezentujący prefix;
+ * @return Wartość @p true, jeśli numer zaczyna się od prefixu.
+ *         Wartość @p false, jeśli numery nie zaczyna się od prefixu.
+ */
 bool startsWith(char const *number, char const *prefix){
     size_t prefix_length = numberLength(prefix);
     size_t number_length = numberLength(number);
@@ -142,11 +153,7 @@ bool startsWith(char const *number, char const *prefix){
     return true;
 }
 
-int compareDigit(char digit1, char digit2){
-    return (digitToIndex(digit1) - digitToIndex(digit2));
-}
-
-bool isHigher(char const *num1, char const *num2){
+bool compareNumbers(char const *num1, char const *num2){
     size_t number1_lentgh = numberLength(num1);
     size_t number2_lentgh = numberLength(num2);
 
