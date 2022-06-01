@@ -223,13 +223,18 @@ static PhoneNumbers *newPhoneNumber(char *number) {
 
 PhoneForward *phfwdNew(void) {
     PhoneForward *ans = malloc(sizeof(PhoneForward));
+    if(ans == NULL){
+        return NULL;
+    }
     ans->forward = newNode();
     if (ans->forward == NULL) {
+        free(ans);
         return NULL;
     }
 
     ans->reverse = newNode();
     if (ans->reverse == NULL) {
+        free(ans);
         free(ans->forward);
         return NULL;
     }
