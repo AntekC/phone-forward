@@ -9,15 +9,15 @@
 #include <ctype.h>
 
 
-static size_t min(size_t a, size_t b){
-    if(a > b){
+static size_t min(size_t a, size_t b) {
+    if (a > b) {
         return b;
     } else {
         return a;
     }
 }
 
-static int compareDigit(char digit1, char digit2){
+static int compareDigit(char digit1, char digit2) {
     return (digitToIndex(digit1) - digitToIndex(digit2));
 }
 
@@ -45,10 +45,10 @@ size_t numberLength(char const *number) {
     }
 }
 
-int digitToIndex(char digit){
-    if(isdigit(digit)){
+int digitToIndex(char digit) {
+    if (isdigit(digit)) {
         return digit - '0';
-    } else if (digit == '*'){
+    } else if (digit == '*') {
         return 10;
     } else {
         return 11;
@@ -135,38 +135,39 @@ char *makeCopy(char const *number) {
  * @return Wartość @p true, jeśli numer zaczyna się od prefixu.
  *         Wartość @p false, jeśli numery nie zaczyna się od prefixu.
  */
-bool startsWith(char const *number, char const *prefix){
+bool startsWith(char const *number, char const *prefix) {
     size_t prefix_length = numberLength(prefix);
     size_t number_length = numberLength(number);
-    if(prefix_length > number_length){
+    if (prefix_length > number_length) {
         return false;
     }
 
-    for(size_t i = 0; i < prefix_length; ++i){
-        if(*prefix != *number){
+    for (size_t i = 0; i < prefix_length; ++i) {
+        if (*prefix != *number) {
             return false;
         } else {
             ++prefix;
             ++number;
         }
     }
+
     return true;
 }
 
-bool compareNumbers(char const *num1, char const *num2){
-    size_t number1_lentgh = numberLength(num1);
-    size_t number2_lentgh = numberLength(num2);
+bool compareNumbers(char const *num1, char const *num2) {
+    size_t number1_length = numberLength(num1);
+    size_t number2_length = numberLength(num2);
 
-    for(size_t i = 0; i < min(number1_lentgh, number2_lentgh); ++i){
-        if(compareDigit(*num1,*num2) > 0){
+    for (size_t i = 0; i < min(number1_length, number2_length); ++i) {
+        if (compareDigit(*num1, *num2) > 0) {
             return true;
-        } else if(compareDigit(*num1,*num2) < 0){
+        } else if (compareDigit(*num1, *num2) < 0) {
             return false;
         } else {
             ++num1;
             ++num2;
         }
     }
-    return (number1_lentgh > number2_lentgh);
 
+    return (number1_length > number2_length);
 }

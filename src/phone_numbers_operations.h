@@ -9,8 +9,8 @@
 #include <stdlib.h>
 
 
-//TODO skomentowac to
-size_t numberLength(char const *number);
+
+size_t numberLength(char const *number); //TODO skomentowac
 
 char *combineNumbers(char const *num1, char const *num2);
 

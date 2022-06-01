@@ -132,7 +132,7 @@ PhoneNumbers *newPhoneNumber(char *number);
 
 void changeFirstNumber(PhoneNumbers *numbers, char *num);
 
-bool add_next(PhoneNumbers *numbers, char *num);
+bool addNextNumber(PhoneNumbers *numbers, char *num);
 
 
 #endif /* __PHONE_FORWARD_H__ */
