@@ -13,7 +13,7 @@
 #include "phone_numbers_operations.h"
 #include "trie.h"
 
-#define NUMBER_OF_CHILDREN 10 ///< Liczba synów węzła struktury PhoneForward
+//#define NUMBER_OF_CHILDREN 12 ///< Liczba synów węzła struktury PhoneForward
 
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
