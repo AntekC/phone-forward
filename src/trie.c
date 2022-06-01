@@ -189,7 +189,7 @@ bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
             if(reverse->child[index]->numbers != NULL){
                 if(!addNumbers(reverse->child[index]->numbers, &wynik, level, num)){
                     phnumDelete(wynik);
-                    return NULL;
+                    return false;
                 }
             }
         }

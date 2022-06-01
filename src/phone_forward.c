@@ -174,11 +174,11 @@ bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, cha
 bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num){
     while(numbers != NULL){
         if(compareNumbers((*ans)->number, numbers->number)){
-            if(insertFirstNumber(ans,numbers->number, level, num)){
+            if(!insertFirstNumber(ans,numbers->number, level, num)){
                 return false;
             }
         } else {
-            if(insertNotFirstNumber(*ans,numbers->number, level, num)){
+            if(!insertNotFirstNumber(*ans,numbers->number, level, num)){
                 return false;
             }
         }
@@ -271,7 +271,7 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
 
 PhoneNumbers *phfwdReverse( PhoneForward const *pf,char const *num) {
 
-    PhoneNumbers *ans;
+    PhoneNumbers *ans = NULL;
 
     if (pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
