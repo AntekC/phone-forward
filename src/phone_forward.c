@@ -253,6 +253,7 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,ch
     PhoneNumbers *insert = newPhoneNumber(number_to_insert);
     if(insert == NULL){
         free(number_to_insert);
+        free(insert);
         return false;
     }
 

@@ -184,6 +184,7 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
     PhoneNumbers *wynik = NULL;
 
     if(number_lentgh == 0){
+        free(original_number);
         wynik = newPhoneNumber(NULL);
         (*ans) = wynik;
         return false;
