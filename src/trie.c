@@ -145,7 +145,8 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
     }
 
     printf("1\n");
-
+    bool test = areNumbersIndentical(phnumGet(reverse->numbers,0),number_to_delete);
+    printf("11\n");
     if(reverse->numbers == NULL){
         printf("NULL reverse\n");
     }
