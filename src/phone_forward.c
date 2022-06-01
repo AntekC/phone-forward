@@ -253,7 +253,6 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,ch
     PhoneNumbers *insert = newPhoneNumber(number_to_insert);
     if(insert == NULL){
         free(number_to_insert);
-        free(insert);
         return false;
     }
 
@@ -262,7 +261,7 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,ch
 
     while(ans != NULL){
         if(areNumbersIndentical(ans->number,number_to_insert)){
-            free(number_to_insert);
+            phnumDelete(insert);
             return true;
         } else if(isHigher(ans->number,number_to_insert)){
             prev->next = insert;
