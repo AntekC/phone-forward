@@ -351,6 +351,9 @@ void phnumDeleteFirstNumber(PhoneNumbers **pnum){
 
 void phnumDeleteNumber(PhoneNumbers *pnum, char const *number){
     //TODO check czy nie jest null
+    if(pnum == NULL){
+        printf("error");
+    }
     PhoneNumbers *prev = pnum;
     pnum = pnum->next;
     while(pnum != NULL){
