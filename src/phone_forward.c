@@ -351,20 +351,19 @@ void phnumDeleteFirstNumber(PhoneNumbers **pnum){
 
 void phnumDeleteNumber(PhoneNumbers *pnum, char const *number){
     //TODO check czy nie jest null
-    if(pnum == NULL){
-        printf("error");
-    }
-    PhoneNumbers *prev = pnum;
-    pnum = pnum->next;
-    while(pnum != NULL){
-        if(areNumbersIndentical(pnum->number,number)){
-            prev->next = pnum->next;
-            free(pnum->number);
-            free(pnum);
-            break;
-        } else {
-            prev = pnum;
-            pnum = pnum->next;
+    if(pnum != NULL) {
+        PhoneNumbers *prev = pnum;
+        pnum = pnum->next;
+        while (pnum != NULL) {
+            if (areNumbersIndentical(pnum->number, number)) {
+                prev->next = pnum->next;
+                free(pnum->number);
+                free(pnum);
+                break;
+            } else {
+                prev = pnum;
+                pnum = pnum->next;
+            }
         }
     }
 }
