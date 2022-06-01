@@ -13,7 +13,6 @@
 #include "phone_numbers_operations.h"
 #include "trie.h"
 
-//#define NUMBER_OF_CHILDREN 12 ///< Liczba synów węzła struktury PhoneForward
 
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
@@ -24,13 +23,18 @@ struct PhoneForward {
     Trie *reverse;
 };
 
+struct PhoneNumbers {
+    struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
+    char *number; // Wskaźnik na numer telefonu.
+};
+
 /** @brief Tworzy nową strukturę.
  * Tworzy nową strukturę PhoneNumbers zawierającą jeden numer telefonu @p number.
  * @param[in] number - wskaźnik na napis reprezentujący numer.
  * @return Wskaźnik na strukturę przechowującą numer telefonu @p number lub NULL, gdy nie
  *         udało się alokować pamięci.
  */
-static PhoneNumbers *newPhoneNumber(char *number) {
+PhoneNumbers *newPhoneNumber(char *number) {
     PhoneNumbers *ans = malloc(sizeof(PhoneNumbers));
     if (ans == NULL) {
         return NULL;
@@ -40,6 +44,23 @@ static PhoneNumbers *newPhoneNumber(char *number) {
     ans->next = NULL;
 
     return ans;
+}
+
+void changeFirstNumber(PhoneNumbers *numbers, char *num) {
+    free(numbers->number);
+    numbers->number = num;
+}
+
+bool add_next(PhoneNumbers *numbers, char *num) {
+    while (numbers->next != NULL) {
+        numbers = numbers->next;
+    }
+    numbers->next = newPhoneNumber(num);
+    if(numbers->next == NULL){
+        return false;
+    } else {
+        return true;
+    }
 }
 
 PhoneForward *phfwdNew(void) {
@@ -115,6 +136,8 @@ void phnumDelete(PhoneNumbers *pnum) {
     }
 }
 
+
+//TODO WYWALIC TO DO TRIE
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     if (pf == NULL) {
         return NULL;

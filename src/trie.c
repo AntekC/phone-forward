@@ -24,40 +24,11 @@ Trie *newNode() {
     return ans;
 }
 
-PhoneNumbers *newPhoneNumber(char *number) {
-    PhoneNumbers *ans = malloc(sizeof(PhoneNumbers));
-    if (ans == NULL) {
-        return NULL;
-    }
-
-    ans->number = number;
-    ans->next = NULL;
-
-    return ans;
-}
-
-void changeFirstNumber(PhoneNumbers *numbers, char *num) {
-    free(numbers->number);
-    numbers->number = num;
-}
-
-bool add_next(PhoneNumbers *numbers, char *num) {
-    while (numbers->next != NULL) {
-        numbers = numbers->next;
-    }
-    numbers->next = newPhoneNumber(num);
-    if(numbers->next == NULL){
-        return false;
-    } else {
-        return true;
-    }
-}
-
 void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char const *number_to_delete){
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(number_reverse[level]);//number_reverse[level] - '0'; // TODO wywalić indeksy
+        int index = digitToIndex(number_reverse[level]);
         reverse = reverse->child[index];
     }
 
