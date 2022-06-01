@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <stdio.h>
+#include "phone_numbers_operations.h"
 #include "phone_forward.h"
 #include "trie.h"
 
@@ -22,95 +23,6 @@ Trie *newNode() {
 
     return ans;
 }
-
-size_t numberLength(char const *number) {
-    size_t answer = 0;
-    if (number == NULL) {
-        return 0;
-    }
-
-    while (isdigit(*number)) {
-        ++answer;
-        ++number;
-    }
-
-    if (*number != '\0') {
-        return 0;
-    } else {
-        return answer;
-    }
-}
-
-char *makeCopy(char const *number) {
-    size_t number_length = numberLength(number);
-    char *ans = malloc(number_length * sizeof(char) + 1);
-    if (ans == NULL) {
-        return NULL;
-    }
-
-    for (size_t i = 0; i < number_length; ++i) {
-        ans[i] = number[i];
-    }
-    ans[number_length] = '\0';
-
-    return ans;
-}
-
-char *combineNumbers(char const *num1, char const *num2) {
-    size_t number1_length = numberLength(num1);
-    size_t number2_length = numberLength(num2);
-    char *ans = malloc((number1_length + number2_length + 1) * sizeof(char));
-    if (ans == NULL) {
-        return NULL;
-    }
-
-    for (size_t i = 0; i < number1_length; ++i) {
-        ans[i] = num1[i];
-    }
-    for (size_t i = number1_length; i < number1_length + number2_length; ++i) {
-        ans[i] = num2[i - number1_length];
-    }
-    ans[number1_length + number2_length] = '\0';
-
-    return ans;
-}
-
-bool areNumbersIndentical(char const *num1, char const *num2) {
-    size_t number1_length = numberLength(num1);
-    size_t number2_length = numberLength(num2);
-
-    if (number1_length == number2_length && number1_length != 0) {
-        while (*num1 != '\0') {
-            if (*num1 != *num2) {
-                return false;
-            } else {
-                ++num1;
-                ++num2;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//bool startsWith(char const *number, char const *prefix){
-//    size_t prefix_length = numberLength(prefix);
-//    size_t number_length = numberLength(number);
-//    if(prefix_length > number_length){
-//        printf("lalala");
-//    }
-//
-//    for(size_t i = 0; i < prefix_length; ++i){
-//        if(*prefix != *number){
-//            return false;
-//        } else {
-//            ++prefix;
-//            ++number;
-//        }
-//    }
-//    return true;
-//}
 
 PhoneNumbers *newPhoneNumber(char *number) {
     PhoneNumbers *ans = malloc(sizeof(PhoneNumbers));
@@ -167,8 +79,6 @@ void deleteAllNumberStartingWith(Trie *reverse, char const *number_reverse, char
 
     if(startsWith(phnumGet(reverse->numbers,0),prefix)){
         phnumDeleteFirstNumber(&reverse->numbers);
-        //free(reverse->numbers);
-        //reverse->numbers = NULL;
     }
 
 }
@@ -215,9 +125,6 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
         }
     } else {
         if (trie->numbers != NULL) {
-            if(phnumGet(trie->numbers,0) == NULL){
-                printf("lulu\n");
-            }
             deleteNumberFromReverse(reverse_trie,phnumGet(trie->numbers,0),num1);
             changeFirstNumber(trie->numbers, number_to_insert);
         } else {
@@ -249,12 +156,10 @@ void deleteForwardTrie(Trie *trie, Trie *reverse_trie, char const *num){
     if(trie != NULL){
         for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
             deleteForwardTrie(trie->child[i],reverse_trie, num);
-            //trie->child[i] = NULL;
         }
         if (trie->numbers != NULL) {
             deleteAllNumberStartingWith(reverse_trie, phnumGet(trie->numbers,0), num);
             phnumDelete(trie->numbers);
-            //free(trie->numbers);
         }
         free(trie);
     }
