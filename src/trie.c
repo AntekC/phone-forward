@@ -144,7 +144,7 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
         reverse = reverse->child[index];
     }
 
-    printf("a");
+    printf("aaaa");
 
     if(reverse->numbers == NULL){
         printf("NULL reverse\n");
