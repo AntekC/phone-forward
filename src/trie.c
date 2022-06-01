@@ -10,6 +10,11 @@
 #include "phone_forward.h"
 #include "trie.h"
 
+struct Trie {
+    Trie *child[NUMBER_OF_CHILDREN];
+    PhoneNumbers *numbers;
+};
+
 Trie *newNode() {
     Trie *ans = malloc(sizeof(Trie));
     if (ans == NULL) {
@@ -281,7 +286,5 @@ bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans){
             return true;
         }
     }
-
-
 }
 

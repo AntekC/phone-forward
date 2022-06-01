@@ -9,10 +9,7 @@
 
 typedef struct Trie Trie;
 
-struct Trie {
-    Trie *child[NUMBER_OF_CHILDREN];
-    PhoneNumbers *numbers;
-};
+struct Trie;
 
 
 Trie *newNode();

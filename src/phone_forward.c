@@ -62,6 +62,58 @@ bool add_next(PhoneNumbers *numbers, char *num) {
     }
 }
 
+void phnumDeleteFirstNumber(PhoneNumbers **pnum){
+    if((*pnum) != NULL){
+        if((*pnum)->next == NULL){
+            PhoneNumbers *save = *pnum;
+            (*pnum) = NULL;
+            free(save->number);
+            free(save);
+
+        } else {
+            PhoneNumbers *save = *pnum;
+            *pnum = (*pnum)->next;
+            free(save->number);
+            free(save);
+        }
+    }
+}
+
+void phnumDeleteNumber(PhoneNumbers *pnum, char const *number){
+    if(pnum != NULL) {
+        PhoneNumbers *prev = pnum;
+        pnum = pnum->next;
+        while (pnum != NULL) {
+            if (areNumbersIndentical(pnum->number, number)) {
+                prev->next = pnum->next;
+                free(pnum->number);
+                free(pnum);
+                break;
+            } else {
+                prev = pnum;
+                pnum = pnum->next;
+            }
+        }
+    }
+}
+
+void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix){
+    PhoneNumbers *prev = pnum;
+    pnum = pnum->next;
+    while(pnum != NULL){
+        if(startsWith(pnum->number,prefix)){
+            prev->next = pnum->next;
+            PhoneNumbers *save = pnum;
+            pnum = pnum->next;
+            free(save->number);
+            free(save);
+        } else {
+            prev = pnum;
+            pnum = pnum->next;
+        }
+    }
+}
+
 bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level,char const *num){
     char *number_to_insert = combineNumbers(number,num+level+1);
     if(number_to_insert == NULL){
@@ -117,6 +169,22 @@ bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, cha
     } else {
         return false;
     }
+}
+
+bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num){
+    while(numbers != NULL){
+        if(compareNumbers((*ans)->number, numbers->number)){
+            if(insertFirstNumber(ans,numbers->number, level, num)){
+                return false;
+            }
+        } else {
+            if(insertNotFirstNumber(*ans,numbers->number, level, num)){
+                return false;
+            }
+        }
+        numbers = numbers->next;
+    }
+    return true;
 }
 
 PhoneForward *phfwdNew(void) {
@@ -176,8 +244,6 @@ void phnumDelete(PhoneNumbers *pnum) {
     }
 }
 
-
-//TODO WYWALIC TO DO TRIE
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     PhoneNumbers *ans = NULL;
     if (pf != NULL && pf->forward != NULL) {
@@ -185,115 +251,6 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     }
 
     return ans;
-
-
-//    Trie *forward_save = NULL;
-//    size_t level_save = 0;
-//    size_t number_length = numberLength(num);
-//    Trie *forward = pf->forward;
-//
-//    if (number_length == 0) {
-//        return newPhoneNumber(NULL);
-//    }
-//
-//    // Szukamy najdłuższego pasującego prefiksu i
-//    // zapisujamy jego koniecna wskaźnik forward_save.
-//    for (size_t level = 0; level < number_length; ++level) {
-//        int index = digitToIndex(num[level]); // TODO wywalić indeksy
-//
-//        if (forward->child[index] == NULL) {
-//            break;
-//        } else if (forward->child[index]->numbers != NULL) {
-//            forward_save = forward->child[index];
-//            level_save = level;
-//        }
-//
-//        forward = forward->child[index];
-//    }
-//
-//    // Zwracamy przekierowany numer lub otrzymany numer,
-//    // jeżeli nie znaleźliśmy przekierowania.
-//    if (forward_save == NULL) {
-//        char *number_to_make = makeCopy(num);
-//        if(number_to_make == NULL){
-//            return  NULL;
-//        }
-//
-//        PhoneNumbers *ans = newPhoneNumber((number_to_make));
-//        if(ans == NULL){
-//            free(number_to_make);
-//            return NULL;
-//        } else {
-//            return ans;
-//        }
-//
-//    } else {
-//        char *number_to_make = combineNumbers(forward_save->numbers->number, num + level_save + 1);
-//        if(number_to_make == NULL){
-//            return NULL;
-//        }
-//
-//        PhoneNumbers *ans = newPhoneNumber(number_to_make);
-//        if(ans == NULL){
-//            free(number_to_make);
-//            return NULL;
-//        } else {
-//            return ans;
-//        }
-//
-//    }
-}
-
-void phnumDeleteFirstNumber(PhoneNumbers **pnum){
-    if((*pnum) != NULL){
-        if((*pnum)->next == NULL){
-            PhoneNumbers *save = *pnum;
-            (*pnum) = NULL;
-            free(save->number);
-            free(save);
-
-        } else {
-            PhoneNumbers *save = *pnum;
-            *pnum = (*pnum)->next;
-            free(save->number);
-            free(save);
-        }
-    }
-}
-
-void phnumDeleteNumber(PhoneNumbers *pnum, char const *number){
-    if(pnum != NULL) {
-        PhoneNumbers *prev = pnum;
-        pnum = pnum->next;
-        while (pnum != NULL) {
-            if (areNumbersIndentical(pnum->number, number)) {
-                prev->next = pnum->next;
-                free(pnum->number);
-                free(pnum);
-                break;
-            } else {
-                prev = pnum;
-                pnum = pnum->next;
-            }
-        }
-    }
-}
-
-void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix){
-    PhoneNumbers *prev = pnum;
-    pnum = pnum->next;
-    while(pnum != NULL){
-        if(startsWith(pnum->number,prefix)){
-            prev->next = pnum->next;
-            PhoneNumbers *save = pnum;
-            pnum = pnum->next;
-            free(save->number);
-            free(save);
-        } else {
-            prev = pnum;
-            pnum = pnum->next;
-        }
-    }
 }
 
 char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
@@ -310,18 +267,6 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
     } else {
         return pnum->number;
     }
-}
-
-bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num){
-    while(numbers != NULL){
-        if(compareNumbers((*ans)->number, numbers->number)){
-            insertFirstNumber(ans,numbers->number, level, num); //TODO MOZE WYWALIC BLAD
-        } else {
-            insertNotFirstNumber(*ans,numbers->number, level, num);
-        }
-        numbers = numbers->next;
-    }
-    return true;
 }
 
 PhoneNumbers *phfwdReverse( PhoneForward const *pf,char const *num) {
