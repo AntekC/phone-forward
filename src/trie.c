@@ -146,10 +146,8 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
 
     if(reverse != NULL){
         if(areNumbersIndentical(phnumGet(reverse->numbers,0),number_to_delete)){
-            printf("2\n");
             phnumDeleteFirstNumber(&reverse->numbers);
         } else {
-            printf("3\n");
             phnumDeleteNumber(reverse->numbers,number_to_delete);
         }
     }
