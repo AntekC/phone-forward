@@ -234,8 +234,8 @@ PhoneForward *phfwdNew(void) {
 
     ans->reverse = newNode();
     if (ans->reverse == NULL) {
-        free(ans);
         free(ans->forward);
+        free(ans);
         return NULL;
     }
 
