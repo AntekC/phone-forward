@@ -144,6 +144,10 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
         reverse = reverse->child[index];
     }
 
+    if(reverse->numbers == NULL){
+        printf("NULL reverse\n");
+    }
+
     if(areNumbersIndentical(phnumGet(reverse->numbers,0),number_to_delete)){
         phnumDeleteFirstNumber(&reverse->numbers);
     } else {
@@ -183,7 +187,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
         return false;
     }
 
-    // Przechodzimy po drzewie trie trie dodając kolejne cyfry z prefiksu num1 jako węzły.
+    // Przechodzimy po drzewie trie dodając kolejne cyfry z prefiksu num1 jako węzły.
     for (size_t level = 0; level < number1_length; ++level) {
         int index = num1[level] - '0';
 
