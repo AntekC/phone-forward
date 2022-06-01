@@ -242,10 +242,10 @@ void phfwdRemove(PhoneForward *pf, char const *num) {
 
 void phnumDelete(PhoneNumbers *pnum) {
     while (pnum != NULL) {
-        PhoneNumbers *pom = pnum;
+        PhoneNumbers *save = pnum;
         pnum = pnum->next;
-        free(pom->number);
-        free(pom);
+        free(save->number);
+        free(save);
     }
 }
 
@@ -276,7 +276,6 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
 }
 
 PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
-
     PhoneNumbers *ans = NULL;
 
     if (pf != NULL) {
