@@ -326,9 +326,33 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     // Zwracamy przekierowany numer lub otrzymany numer,
     // jeżeli nie znaleźliśmy przekierowania.
     if (forward_save == NULL) {
-        return newPhoneNumber(makeCopy(num));
+        char *number_to_make = makeCopy(num);
+        if(number_to_make == NULL){
+            return  NULL;
+        }
+
+        PhoneNumbers *ans = newPhoneNumber((number_to_make));
+        if(ans == NULL){
+            free(number_to_make);
+            return NULL;
+        } else {
+            return ans;
+        }
+
     } else {
-        return newPhoneNumber(combineNumbers(forward_save->numbers->number, num + level_save + 1));
+        char *number_to_make = combineNumbers(forward_save->numbers->number, num + level_save + 1);
+        if(number_to_make == NULL){
+            return NULL;
+        }
+
+        PhoneNumbers *ans = newPhoneNumber(number_to_make);
+        if(ans == NULL){
+            free(number_to_make);
+            return NULL;
+        } else {
+            return ans;
+        }
+
     }
 }
 
