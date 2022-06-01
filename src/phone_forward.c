@@ -136,7 +136,7 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
 
         if (forward->child[index] == NULL) {
             break;
-        } else if (forward->child[index]->numbers != NULL) { //TODO zmienic
+        } else if (forward->child[index]->numbers != NULL) {
             forward_save = forward->child[index];
             level_save = level;
         }

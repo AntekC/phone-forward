@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+
+//TODO skomentowac to
 size_t numberLength(char const *number);
 char *combineNumbers(char const *num1, char const *num2);
 bool areNumbersIndentical(char const *num1, char const *num2);

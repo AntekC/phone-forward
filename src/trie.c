@@ -41,11 +41,16 @@ void changeFirstNumber(PhoneNumbers *numbers, char *num) {
     numbers->number = num;
 }
 
-void add_next(PhoneNumbers *numbers, char *num) {
+bool add_next(PhoneNumbers *numbers, char *num) {
     while (numbers->next != NULL) {
         numbers = numbers->next;
     }
     numbers->next = newPhoneNumber(num);
+    if(numbers->next == NULL){
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char const *number_to_delete){
@@ -115,28 +120,36 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
 
     if (reverse) {
         if (trie->numbers != NULL) {
-            add_next(trie->numbers, number_to_insert);//TODO TO MOZE WYWALIC BLAD
+            if(!add_next(trie->numbers, number_to_insert)){
+                free(number_to_insert);
+                return false;
+            } else {
+                return true;
+            }
         } else {
             trie->numbers = newPhoneNumber(number_to_insert);
             if (trie->numbers == NULL) {
                 free(number_to_insert);
                 return false;
+            } else {
+                return true;
             }
         }
     } else {
         if (trie->numbers != NULL) {
             deleteNumberFromReverse(reverse_trie,phnumGet(trie->numbers,0),num1);
             changeFirstNumber(trie->numbers, number_to_insert);
+            return true;
         } else {
             trie->numbers = newPhoneNumber(number_to_insert);
             if (trie->numbers == NULL) {
                 free(number_to_insert);
                 return false;
+            } else {
+                return true;
             }
         }
     }
-
-    return true;
 }
 
 
