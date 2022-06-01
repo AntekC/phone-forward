@@ -214,6 +214,9 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
         }
     } else {
         if (trie->numbers != NULL) {
+            if(phnumGet(trie->numbers,0) == NULL){
+                printf("lulu\n");
+            }
             deleteNumberFromReverse(reverse_trie,phnumGet(trie->numbers,0),num1);
             changeFirstNumber(trie->numbers, number_to_insert);
         } else {
