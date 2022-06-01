@@ -8,7 +8,7 @@
 
 #define MAX_LEN 23
 
-int main() {
+int mainn() {
   char num1[MAX_LEN + 1], num2[MAX_LEN + 1];
   PhoneForward *pf;
   PhoneNumbers *pnum;

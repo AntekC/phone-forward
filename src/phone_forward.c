@@ -91,7 +91,7 @@ void phfwdRemove(PhoneForward *pf, char const *num) {
 
         Trie *forward = pf->forward;
         for (size_t level = 0; level < number_length; ++level) {
-            int index = num[level] - '0';
+            int index = digitToIndex(num[level]);
 
             if (level == number_length - 1) {
                 deleteForwardTrie(forward->child[index],pf->reverse,num);

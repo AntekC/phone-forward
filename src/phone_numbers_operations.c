@@ -5,14 +5,15 @@
 #include "phone_numbers_operations.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <ctype.h>
 
 
 static size_t min(size_t a, size_t b){
     if(a > b){
-        return a;
-    } else {
         return b;
+    } else {
+        return a;
     }
 }
 
@@ -159,7 +160,6 @@ bool isHigher(char const *num1, char const *num2){
             ++num2;
         }
     }
-
     return (number1_lentgh > number2_lentgh);
 
 }
