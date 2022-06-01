@@ -403,12 +403,6 @@ char const *phnumGet(PhoneNumbers const *pnum, size_t idx) {
 }
 
 
-
-/** @brief Aktualnie niezaimplmentowana funkcja.
- * @param[in] pf  – wskaźnik na strukturę przechowującą przekierowania numerów;
- * @param[in] num – wskaźnik na napis reprezentujący numer.
- * @return NULL.
- */
 PhoneNumbers *phfwdReverse(
         __attribute__((unused)) PhoneForward const *pf,
         __attribute__((unused)) char const *num) {
