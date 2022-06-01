@@ -161,16 +161,18 @@ bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
     char *original_number = makeCopy(num);
     PhoneNumbers *wynik = NULL;
 
+    if(original_number == NULL){
+        (*ans) = wynik;
+        return false;
+    }
+
     if(number_lentgh == 0){
         free(original_number);
         wynik = newPhoneNumber(NULL);
         (*ans) = wynik;
         return false;
     }
-    if(original_number == NULL){
-        (*ans) = wynik;
-        return false;
-    }
+
 
     wynik = newPhoneNumber(original_number);
     if(wynik == NULL){
@@ -278,7 +280,7 @@ bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans){
 
         ans_buff = newPhoneNumber(number_to_give);
 
-        if(ans == NULL){
+        if(ans_buff == NULL){
             free(number_to_give);
             return false;
         } else {

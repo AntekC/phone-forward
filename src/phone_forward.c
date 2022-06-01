@@ -246,6 +246,7 @@ void phnumDelete(PhoneNumbers *pnum) {
 
 PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     PhoneNumbers *ans = NULL;
+
     if (pf != NULL && pf->forward != NULL) {
         getFromForward(pf->forward, num, &ans);
     }
