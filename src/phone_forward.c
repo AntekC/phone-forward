@@ -132,7 +132,7 @@ PhoneNumbers *phfwdGet(PhoneForward const *pf, char const *num) {
     // Szukamy najdłuższego pasującego prefiksu i
     // zapisujamy jego koniecna wskaźnik forward_save.
     for (size_t level = 0; level < number_length; ++level) {
-        int index = num[level] - '0'; // TODO wywalić indeksy
+        int index = digitToIndex(num[level]); // TODO wywalić indeksy
 
         if (forward->child[index] == NULL) {
             break;

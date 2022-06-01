@@ -5,9 +5,10 @@
 #ifndef PHONE_NUMBERS_TRIE_H
 #define PHONE_NUMBERS_TRIE_H
 
-#define NUMBER_OF_CHILDREN 10
+#define NUMBER_OF_CHILDREN 12
 
 typedef struct Trie Trie;
+
 struct Trie {
     Trie *child[NUMBER_OF_CHILDREN];
     PhoneNumbers *numbers;

@@ -28,7 +28,7 @@ size_t numberLength(char const *number) {
         return 0;
     }
 
-    while (isdigit(*number)) {
+    while (isdigit(*number) || *number == '*' || *number == '#') {
         ++answer;
         ++number;
     }
@@ -37,6 +37,16 @@ size_t numberLength(char const *number) {
         return 0;
     } else {
         return answer;
+    }
+}
+
+int digitToIndex(char digit){
+    if(isdigit(digit)){
+        return digit - '0';
+    } else if (digit == '*'){
+        return 10;
+    } else {
+        return 11;
     }
 }
 
@@ -131,14 +141,18 @@ bool startsWith(char const *number, char const *prefix){
     return true;
 }
 
+int compareDigit(char digit1, char digit2){
+    return (digitToIndex(digit1) - digitToIndex(digit2));
+}
+
 bool isHigher(char const *num1, char const *num2){
     size_t number1_lentgh = numberLength(num1);
     size_t number2_lentgh = numberLength(num2);
 
     for(size_t i = 0; i < min(number1_lentgh, number2_lentgh); ++i){
-        if(*num1 > *num2){
+        if(compareDigit(*num1,*num2) > 0){
             return true;
-        } else if(*num1 < *num2){
+        } else if(compareDigit(*num1,*num2) < 0){
             return false;
         } else {
             ++num1;

@@ -57,7 +57,7 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = number_reverse[level] - '0'; // TODO wywalić indeksy
+        int index = digitToIndex(number_reverse[level]);//number_reverse[level] - '0'; // TODO wywalić indeksy
         reverse = reverse->child[index];
     }
 
@@ -74,7 +74,7 @@ void deleteAllNumberStartingWith(Trie *reverse, char const *number_reverse, char
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = number_reverse[level] - '0'; // TODO wywalić indeksy
+        int index = digitToIndex(number_reverse[level]); // TODO wywalić indeksy
         reverse = reverse->child[index];
     }
 
@@ -101,7 +101,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
 
     // Przechodzimy po drzewie trie dodając kolejne cyfry z prefiksu num1 jako węzły.
     for (size_t level = 0; level < number1_length; ++level) {
-        int index = num1[level] - '0';
+        int index = digitToIndex(num1[level]);
 
         if (trie->child[index] == NULL) {
             trie->child[index] = newNode();
@@ -203,7 +203,7 @@ bool giveReverse(Trie *reverse, char const *num, PhoneNumbers **ans){
     }
 
     for (size_t level = 0; level < number_lentgh; ++level) {
-        int index = num[level] - '0';
+        int index = digitToIndex(num[level]);
 
         if (reverse->child[index] == NULL) {
             break;
