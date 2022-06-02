@@ -22,7 +22,7 @@ bool startsWith(char const *number, char const *prefix);
 
 bool compareNumbers(char const *num1, char const *num2);
 
-int digitToIndex(char digit);
+int digitToOrder(char digit);
 
 
 #endif //PHONE_NUMBERS_PHONE_NUMBERS_OPERATIONS_H

@@ -18,7 +18,7 @@ static size_t min(size_t a, size_t b) {
 }
 
 static int compareDigit(char digit1, char digit2) {
-    return (digitToIndex(digit1) - digitToIndex(digit2));
+    return (digitToOrder(digit1) - digitToOrder(digit2));
 }
 
 /** @brief Wyznacza długość numeru.
@@ -45,7 +45,7 @@ size_t numberLength(char const *number) {
     }
 }
 
-int digitToIndex(char digit) {
+int digitToOrder(char digit) {
     if (isdigit(digit)) {
         return digit - '0';
     } else if (digit == '*') {

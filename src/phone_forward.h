@@ -122,11 +122,11 @@ char const * phnumGet(PhoneNumbers const *pnum, size_t idx);
 
 void phnumDeleteFirstNumber(PhoneNumbers **pnum);
 
-void phnumDeleteNumber(PhoneNumbers *pnum, char const *number);
+void phnumDeleteLaterNumber(PhoneNumbers *pnum, char const *number);
 
-void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix);
+void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix);
 
-bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num);
+bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char const *num);
 
 PhoneNumbers *newPhoneNumber(char *number);
 

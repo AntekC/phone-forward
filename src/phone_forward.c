@@ -44,6 +44,28 @@ PhoneNumbers *newPhoneNumber(char *number) {
 
     return ans;
 }
+PhoneForward *phfwdNew(void) {
+    PhoneForward *ans = malloc(sizeof(PhoneForward));
+    if (ans == NULL) {
+        return NULL;
+    }
+
+    ans->forward = newNode();
+    if (ans->forward == NULL) {
+        free(ans);
+        return NULL;
+    }
+
+    ans->reverse = newNode();
+    if (ans->reverse == NULL) {
+        free(ans->forward);
+        free(ans);
+        return NULL;
+    }
+
+    return ans;
+}
+
 
 void changeFirstNumber(PhoneNumbers *numbers, char *num) {
     free(numbers->number);
@@ -66,18 +88,12 @@ void phnumDeleteFirstNumber(PhoneNumbers **pnum) {
     if ((*pnum) != NULL) {
         PhoneNumbers *save = *pnum;
         (*pnum) = (*pnum)->next;
-//        if ((*pnum)->next == NULL) {
-//            (*pnum) = NULL;
-//        } else {
-//            *pnum = (*pnum)->next;
-//        }
-
         free(save->number);
         free(save);
     }
 }
 
-void phnumDeleteNumber(PhoneNumbers *pnum, char const *number) {
+void phnumDeleteLaterNumber(PhoneNumbers *pnum, char const *number) {
     if (pnum != NULL) {
         PhoneNumbers *prev = pnum;
         pnum = pnum->next;
@@ -97,7 +113,7 @@ void phnumDeleteNumber(PhoneNumbers *pnum, char const *number) {
     }
 }
 
-void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix) {
+void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix) {
     if(pnum != NULL) {
         PhoneNumbers *prev = pnum;
         pnum = pnum->next;
@@ -118,7 +134,7 @@ void phnumDeleteAllNumbersStarting(PhoneNumbers *pnum, char const *prefix) {
     }
 }
 
-bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level, char const *num) {
+bool insertLaterNumber(PhoneNumbers *ans, char const *number, size_t level, char const *num) {
     char *number_to_insert = combineNumbers(number, num + level + 1);
     if (number_to_insert == NULL) {
         return false;
@@ -145,72 +161,51 @@ bool insertNotFirstNumber(PhoneNumbers *ans, char const *number, size_t level, c
             ans = ans->next;
         }
     }
+
     prev->next = insert;
     return true;
 }
 
-bool insertFirstNumber(PhoneNumbers **ans, char const *number, size_t level, char const *num) {
+bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t level, char const *num) {
     char *number_to_insert = combineNumbers(number, num + level + 1);
     if (number_to_insert == NULL) {
         return false;
     }
 
     // Już jest taki numer w wyniku zatem nie trzeba go dodawać.
-    if (areNumbersIndentical(number_to_insert, (*ans)->number)) {
+    if (areNumbersIndentical(number_to_insert, (*result)->number)) {
         free(number_to_insert);
         return true;
     }
 
-    if ((*ans) != NULL) {
+    if ((*result) != NULL) {
         PhoneNumbers *new = newPhoneNumber(number_to_insert);
         if (new == NULL) {
             free(number_to_insert);
             return false;
         }
-        new->next = (*ans);
-        (*ans) = new;
+        new->next = (*result);
+        (*result) = new;
         return true;
     } else {
         return false;
     }
 }
 
-bool addNumbers(PhoneNumbers *numbers, PhoneNumbers **ans, size_t level, char const *num) {
-    while (numbers != NULL) {
-        if (compareNumbers((*ans)->number, numbers->number)) {
-            if (!insertFirstNumber(ans, numbers->number, level, num)) {
+bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char const *num) {
+    while (source != NULL) {
+        if (compareNumbers((*target)->number, source->number)) {
+            if (!insertFirstNumber(target, source->number, level, num)) {
                 return false;
             }
         } else {
-            if (!insertNotFirstNumber(*ans, numbers->number, level, num)) {
+            if (!insertLaterNumber(*target, source->number, level, num)) {
                 return false;
             }
         }
-        numbers = numbers->next;
+        source = source->next;
     }
     return true;
-}
-
-PhoneForward *phfwdNew(void) {
-    PhoneForward *ans = malloc(sizeof(PhoneForward));
-    if (ans == NULL) {
-        return NULL;
-    }
-
-    ans->forward = newNode();
-    if (ans->forward == NULL) {
-        free(ans);
-        return NULL;
-    }
-
-    ans->reverse = newNode();
-    if (ans->reverse == NULL) {
-        free(ans->forward);
-        free(ans);
-        return NULL;
-    }
-
-    return ans;
 }
 
 void phfwdDelete(PhoneForward *pf) {

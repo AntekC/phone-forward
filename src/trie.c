@@ -11,7 +11,7 @@
 #include "trie.h"
 
 struct Trie {
-    Trie *child[NUMBER_OF_CHILDREN];
+    Trie *children[NUMBER_OF_CHILDREN];
     PhoneNumbers *numbers;
 };
 
@@ -23,7 +23,7 @@ Trie *newNode() {
 
     ans->numbers = NULL;
     for (int i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-        ans->child[i] = NULL;
+        ans->children[i] = NULL;
     }
 
     return ans;
@@ -33,30 +33,30 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(number_reverse[level]);
-        reverse = reverse->child[index];
+        int index = digitToOrder(number_reverse[level]);
+        reverse = reverse->children[index];
     }
 
     if (reverse != NULL) {
         if (areNumbersIndentical(phnumGet(reverse->numbers, 0), number_to_delete)) {
             phnumDeleteFirstNumber(&reverse->numbers);
         } else {
-            phnumDeleteNumber(reverse->numbers, number_to_delete);
+            phnumDeleteLaterNumber(reverse->numbers, number_to_delete);
         }
     }
 }
 
-void deleteAllNumberStartingWith(Trie *reverse, char const *number_reverse, char const *prefix) {
+void deleteAllNumbersStartingWith(Trie *reverse, char const *number_reverse, char const *prefix) {
     size_t number_length = numberLength(number_reverse);
 
     for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(number_reverse[level]);
-        reverse = reverse->child[index];
+        int index = digitToOrder(number_reverse[level]);
+        reverse = reverse->children[index];
     }
 
     if (reverse != NULL) {
         if (phnumGet(reverse->numbers, 1) != NULL) {
-            phnumDeleteAllNumbersStarting(reverse->numbers, prefix);
+            phnumDeleteAllLaterNumbersStarting(reverse->numbers, prefix);
         }
 
         if (startsWith(phnumGet(reverse->numbers, 0), prefix)) {
@@ -71,17 +71,17 @@ void removeFromForward(Trie *forward, Trie *reverse, char const *num) {
 
     if (forward != NULL && reverse != NULL) {
         for (size_t level = 0; level < number_length; ++level) {
-            int index = digitToIndex(num[level]);
+            int index = digitToOrder(num[level]);
 
             if (level == number_length - 1) {
-                deleteForwardTrie(forward->child[index], reverse, num);
-                forward->child[index] = NULL;
+                deleteForwardSubtrie(forward->children[index], reverse, num);
+                forward->children[index] = NULL;
                 break;
-            } else if (forward->child[index] == NULL) {
+            } else if (forward->children[index] == NULL) {
                 break;
             }
 
-            forward = forward->child[index];
+            forward = forward->children[index];
         }
     }
 }
@@ -97,27 +97,27 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
         return false;
     }
 
-    // Przechodzimy po drzewie trie dodając kolejne cyfry z prefiksu num1 jako węzły.
-    for (size_t level = 0; level < number1_length; ++level) {
-        int index = digitToIndex(num1[level]);
-
-        if (trie->child[index] == NULL) {
-            trie->child[index] = newNode();
-            if (trie->child[index] == NULL) {
-                return false;
-            }
-        }
-
-        trie = trie->child[index];
-    }
-
     char *number_to_insert = makeCopy(num2);
     if (number_to_insert == NULL) {
         return false;
     }
 
-    if (reverse) {
-        if (trie->numbers != NULL) {
+    // Przechodzimy po drzewie trie dodając kolejne cyfry z prefiksu num1 jako węzły.
+    for (size_t level = 0; level < number1_length; ++level) {
+        int index = digitToOrder(num1[level]);
+
+        if (trie->children[index] == NULL) {
+            trie->children[index] = newNode();
+            if (trie->children[index] == NULL) {
+                return false;
+            }
+        }
+
+        trie = trie->children[index];
+    }
+
+    if (trie->numbers != NULL) {
+        if (reverse) {
             if (!addNextNumber(trie->numbers, number_to_insert)) {
                 free(number_to_insert);
                 return false;
@@ -125,27 +125,17 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
                 return true;
             }
         } else {
-            trie->numbers = newPhoneNumber(number_to_insert);
-            if (trie->numbers == NULL) {
-                free(number_to_insert);
-                return false;
-            } else {
-                return true;
-            }
-        }
-    } else {
-        if (trie->numbers != NULL) {
             deleteNumberFromReverse(reverse_trie, phnumGet(trie->numbers, 0), num1);
             changeFirstNumber(trie->numbers, number_to_insert);
             return true;
+        }
+    } else {
+        trie->numbers = newPhoneNumber(number_to_insert); //TODO upiększyć
+        if (trie->numbers == NULL) {
+            free(number_to_insert);
+            return false;
         } else {
-            trie->numbers = newPhoneNumber(number_to_insert);
-            if (trie->numbers == NULL) {
-                free(number_to_insert);
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         }
     }
 }
@@ -153,7 +143,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
 void deleteTrie(Trie *trie) {
     if (trie != NULL) {
         for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-            deleteTrie(trie->child[i]);
+            deleteTrie(trie->children[i]);
         }
         if (trie->numbers != NULL) {
             phnumDelete(trie->numbers);
@@ -162,98 +152,98 @@ void deleteTrie(Trie *trie) {
     }
 }
 
-void deleteForwardTrie(Trie *trie, Trie *reverse_trie, char const *num) {
-    if (trie != NULL) {
+void deleteForwardSubtrie(Trie *forward_trie, Trie *reverse_trie, char const *num) {
+    if (forward_trie != NULL) {
         for (size_t i = 0; i < NUMBER_OF_CHILDREN; ++i) {
-            deleteForwardTrie(trie->child[i], reverse_trie, num);
+            deleteForwardSubtrie(forward_trie->children[i], reverse_trie, num);
         }
-        if (trie->numbers != NULL) {
-            deleteAllNumberStartingWith(reverse_trie, phnumGet(trie->numbers, 0), num);
-            phnumDelete(trie->numbers);
+        if (forward_trie->numbers != NULL) {
+            deleteAllNumbersStartingWith(reverse_trie, phnumGet(forward_trie->numbers, 0), num);
+            phnumDelete(forward_trie->numbers);
         }
-        free(trie);
+        free(forward_trie);
     }
 }
 
-bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **ans) {
-    size_t number_lentgh = numberLength(num);
+bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **result) {
+    size_t number_length = numberLength(num);
     char *original_number = makeCopy(num);
-    PhoneNumbers *wynik = NULL;
+    PhoneNumbers *temp_result = NULL; //TODO zmienic nazwe
 
-    if (original_number == NULL) {
-        (*ans) = wynik;
+    // Sprawdzamy poprawność danych i czy nie wystąpił problem z pamięcią.
+    if (reverse == NULL || original_number == NULL) {
+        (*result) = temp_result;
         return false;
     }
-
-    if (number_lentgh == 0) {
+    if (number_length == 0) {
         free(original_number);
-        wynik = newPhoneNumber(NULL);
-        (*ans) = wynik;
+        temp_result = newPhoneNumber(NULL);
+        (*result) = temp_result;
         return false;
     }
-
-    wynik = newPhoneNumber(original_number);
-    if (wynik == NULL) {
+    temp_result = newPhoneNumber(original_number);
+    if (temp_result == NULL) {
         free(original_number);
         return false;
     }
 
-    for (size_t level = 0; level < number_lentgh; ++level) {
-        int index = digitToIndex(num[level]);
+    // Przechodzimy po drzewie reverse dodając wszystkie numery które przkierowywują na numer num.
+    for (size_t level = 0; level < number_length; ++level) {
+        int index = digitToOrder(num[level]);
 
-        if (reverse->child[index] == NULL) {
+        if (reverse->children[index] == NULL) {
             break;
         } else {
-            if (reverse->child[index]->numbers != NULL) {
-                if (!addNumbers(reverse->child[index]->numbers, &wynik, level, num)) {
-                    phnumDelete(wynik);
+            if (reverse->children[index]->numbers != NULL) {
+                if (!addNumbers(reverse->children[index]->numbers, &temp_result, level, num)) {
+                    phnumDelete(temp_result);
                     return false;
                 }
             }
         }
 
-        reverse = reverse->child[index];
+        reverse = reverse->children[index];
     }
 
-    (*ans) = wynik;
+    (*result) = temp_result;
     return true;
 }
 
-bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans) {
+bool getFromForward(Trie *forward, char const *num, PhoneNumbers **result) {
     PhoneNumbers *ans_buff = NULL; //TODO Zmienić nazwę
     size_t level_save = 0;
     size_t number_length = numberLength(num);
     Trie *forward_save = NULL;
 
     if (forward == NULL) {
-        (*ans) = ans_buff;
+        (*result) = ans_buff;
         return false;
     }
-
     if (number_length == 0) {
         ans_buff = newPhoneNumber(NULL);
-        (*ans) = ans_buff;
+        (*result) = ans_buff;
         return false;
     }
 
+    // Przechodzimy po drzewie trie szukając czy istnieje przekierowanie z num.
     for (size_t level = 0; level < number_length; ++level) {
-        int index = digitToIndex(num[level]);
+        int index = digitToOrder(num[level]);
 
-        if (forward->child[index] == NULL) {
+        if (forward->children[index] == NULL) {
             break;
-        } else if (forward->child[index]->numbers != NULL) {
-            forward_save = forward->child[index];
+        } else if (forward->children[index]->numbers != NULL) {
+            forward_save = forward->children[index];
             level_save = level;
         }
 
-        forward = forward->child[index];
+        forward = forward->children[index];
     }
 
+    // Nie ma takiego przekierownia na numer num, więc go zwracamy.
     if (forward_save == NULL) {
         char *number_to_give = makeCopy(num);
-
         if (number_to_give == NULL) {
-            (*ans) = ans_buff;
+            (*result) = ans_buff;
             return false;
         }
 
@@ -261,18 +251,18 @@ bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans) {
 
         if (ans_buff == NULL) {
             free(number_to_give);
-            (*ans) = ans_buff;
+            (*result) = ans_buff;
             return false;
         } else {
-            (*ans) = ans_buff;
+            (*result) = ans_buff;
             return true;
         }
 
+        // Istnieje przkierowania z numeru num, więc je zwracamy.
     } else {
         char *number_to_give = combineNumbers(phnumGet(forward_save->numbers, 0), num + level_save + 1);
-
         if (number_to_give == NULL) {
-            (*ans) = ans_buff;
+            (*result) = ans_buff;
             return false;
         }
 
@@ -282,7 +272,7 @@ bool getFromForward(Trie *forward, char const *num, PhoneNumbers **ans) {
             free(number_to_give);
             return false;
         } else {
-            (*ans) = ans_buff;
+            (*result) = ans_buff;
             return true;
         }
     }
