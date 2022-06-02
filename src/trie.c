@@ -109,6 +109,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
         if (trie->children[index] == NULL) {
             trie->children[index] = newNode();
             if (trie->children[index] == NULL) {
+                free(number_to_insert);
                 return false;
             }
         }
