@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <stdio.h>
 #include "phone_numbers_operations.h"
 #include "phone_forward.h"
 #include "trie.h"
@@ -63,7 +62,6 @@ void deleteAllNumbersStartingWith(Trie *reverse, char const *number_reverse, cha
             phnumDeleteFirstNumber(&reverse->numbers);
         }
     }
-
 }
 
 void removeFromForward(Trie *forward, Trie *reverse, char const *num) {
