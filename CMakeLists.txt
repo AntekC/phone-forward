@@ -17,7 +17,7 @@ set(CMAKE_C_FLAGS "-std=c17 -Wall -Wextra -Wno-implicit-fallthrough")
 # Domyślne opcje dla wariantów Release i Debug są sensowne.
 # Jeśli to konieczne, ustawiamy tu inne.
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
-# set(CMAKE_C_FLAGS_DEBUG "-g")
+set(CMAKE_C_FLAGS_DEBUG "-g")
 
 # Wskazujemy pliki źródłowe.
 set(SOURCE_FILES
@@ -25,13 +25,17 @@ set(SOURCE_FILES
         src/phone_forward.c
         src/phone_forward_example.c
         src/trie.h
-        src/trie.c src/phone_numbers_operations.c src/phone_numbers_operations.h)
+        src/trie.c
+        src/phone_numbers_operations.c
+        src/phone_numbers_operations.h)
 set(SOURCE_FILES_TEST
         src/phone_forward.h
         src/phone_forward.c
         src/phone_forward_tests.c
         src/trie.h
-        src/trie.c src/phone_numbers_operations.c src/phone_numbers_operations.h)
+        src/trie.c
+        src/phone_numbers_operations.c
+        src/phone_numbers_operations.h)
 
 # Wskazujemy plik wykonywalny.
 add_executable(phone_forward ${SOURCE_FILES})

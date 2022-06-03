@@ -1,7 +1,10 @@
-//
-// Created by Antoni Bryk on 01/06/2022.
-//
-
+/** @file
+ * Implementacja pomocniczych funkcje do działań na numerach telefonów.
+ *
+ * @author Antoni Bryk <ab438254@mimuw.edu.pl>
+ * @copyright Uniwersytet Warszawski
+ * @date 2022
+ */
 #include "phone_numbers_operations.h"
 #include <stdlib.h>
 #include <stdbool.h>
