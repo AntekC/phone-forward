@@ -152,7 +152,7 @@ void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix);
 /** @brief Zmienia pierwszy numer telefonu.
  * Zmienia pierwszy numer telefonu z struktury @p pnum na numer @p num.
  * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
- * @param[in] number - wskaźnik na napis reprezentujący numer do zamienienia.
+ * @param[in] num - wskaźnik na napis reprezentujący numer do zamienienia.
  */
 void changeFirstNumber(PhoneNumbers *pnum, char *num);
 

@@ -27,7 +27,7 @@ struct PhoneForward {
  */
 struct PhoneNumbers {
     struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
-    char *number; // Wskaźnik na numer telefonu.
+    char *number; ///< Wskaźnik na napis reprezentujący numer telefonu.
 };
 
 static bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t level, char const *num) {
