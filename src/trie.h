@@ -9,7 +9,7 @@
 #ifndef PHONE_NUMBERS_TRIE_H
 #define PHONE_NUMBERS_TRIE_H
 
-#define NUMBER_OF_CHILDREN 12
+#define NUMBER_OF_CHILDREN 12 ///< Liczba dzieci węzła drzewa trie.
 
 
 /**
@@ -105,7 +105,7 @@ bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **result);
 
 /** @brief Zapisuje na jaki numer zostanie przekierowany dany numer.
  * Zapisuje do struktury @p result na jaki numer zostanie przekierowany numer @p num.
- * @param[in] trie – wskaźnik na drzewo forward z przekierowaniami.
+ * @param[in] forward – wskaźnik na drzewo forward z przekierowaniami.
  * @param[in] num – wskaźnik na napis reprezentujący numer telefonu
  *                  którego przekierowanie rządamy;
  * @param[in,out] result  – wskaźnik na strukturę PhoneNumbers na którą zapisujemy

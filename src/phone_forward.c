@@ -12,7 +12,6 @@
 #include "phone_numbers_operations.h"
 #include "trie.h"
 
-
 /**
  * To jest struktura przechowująca przekierowania numerów telefonów.
  * Składa się ona z dwóch dzrzew trie.
@@ -22,6 +21,10 @@ struct PhoneForward {
     Trie *reverse; ///< Wskaźnik na drzewo trie odwróconych przekierowań.
 };
 
+/**
+ * To jest struktura przechowująca ciąg numerów telefonów.
+ * Ma ona postać listy.
+ */
 struct PhoneNumbers {
     struct PhoneNumbers *next; ///< Wskaźnik na następny element w liście.
     char *number; // Wskaźnik na numer telefonu.
