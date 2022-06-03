@@ -27,7 +27,7 @@ struct Trie;
  * @return Wskaźnik na utworzoną strukturę lub NULL, gdy nie udało się
  *         alokować pamięci.
  */
-Trie *newNode();
+Trie *newNode(void);
 
 /** @brief Usuwa strukturę.
  * Usuwa strukturę wskazywaną przez @p trie. Nic nie robi, jeśli wskaźnik ten ma
@@ -50,7 +50,7 @@ void deleteForwardSubtrie(Trie *forward_trie, Trie *reverse_trie, char const *nu
 
 /** @brief Usuwa numer z drzewa reverse.
  * Usuwa numer @p number_to_delete będący przekierowaniem na numer @p number_reverse z drzewa reverse.
- * Nic nie robi, jeśli wskaźnik @p reverse_trie ma wartość NULL.
+ * Nic nie robi, jeśli wskaźnik @p reverse ma wartość NULL.
  * @param[in] reverse – wskaźnik na drzewo reverse;
  * @param[in] number_reverse  – wskaźnik na napis reprezentujący numer
  *                                którego przekierowanie usuwamy;
@@ -63,7 +63,7 @@ void deleteNumberFromReverse(Trie *reverse, char const *number_reverse, char con
  * Usuwa podrzewo zawierające wszystkie przekierowania z prefixem @p num z drzewa forward,
  * wskazywanego przez wskaźnik @p forward_trie.
  * Usuwa odpowiednie przkierowania z drzewa reverse wskazywanego przez wskaźnik @p reverse_trie.
- * Nic nie robi, jeśli wskaźnik @p forward_trie lub @p reverse_trie ma wartość NULL.
+ * Nic nie robi, jeśli wskaźnik @p forward lub @p reverse ma wartość NULL.
  * @param[in] forward – wskaźnik na drzewo forward.
  * @param[in] reverse – wskaźnik na drzewo reverse.
  * @param[in] num  – wskaźnik na napis reprezentujący prefiks numerów
@@ -77,6 +77,7 @@ void removeFromForward(Trie *forward, Trie *reverse, char const *num);
  * przekierowanie zostanie wstawione do rzewa reverse.
  * Jeśli w drzewie forward nadpisujemy istniejące przekierowanie,
  * to usuwamy je z drzewa @p reverse_trie.
+ * Nic nie robi, jeśli wskaźnik @p trie lub @p reverse_trie ma wartość NULL.
  * @param[in] trie – wskaźnik na drzewo forward.
  * @param[in] reverse_trie – wskaźnik na drzewo reverse.
  * @param[in] num1   – wskaźnik na napis reprezentujący prefiks numerów
@@ -93,6 +94,7 @@ bool insert(Trie *trie, Trie *reverse_trie, char const *num1, char const *num2, 
 
 /** @brief Zapisuje wszystkie przekierowania na dany numer.
  * Zapisuje wszystkie numery przekierowywujące na numer @p num do struktury @p result.
+ * Nic nie robi, jeśli wskaźnik @p reverse ma wartość NULL.
  * @param[in] reverse – wskaźnik na drzewo reverse z odwróconymi przekierowywaniami;
  * @param[in] num – wskaźnik na napis reprezentujący numer telefonu
  *                  którego przekierowania rządamy;
@@ -105,6 +107,7 @@ bool getFromReverse(Trie *reverse, char const *num, PhoneNumbers **result);
 
 /** @brief Zapisuje na jaki numer zostanie przekierowany dany numer.
  * Zapisuje do struktury @p result na jaki numer zostanie przekierowany numer @p num.
+ * Nic nie robi, jeśli wskaźnik @p forward ma wartość NULL.
  * @param[in] forward – wskaźnik na drzewo forward z przekierowaniami.
  * @param[in] num – wskaźnik na napis reprezentujący numer telefonu
  *                  którego przekierowanie rządamy;

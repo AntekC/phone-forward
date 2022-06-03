@@ -53,9 +53,9 @@ bool areNumbersIndentical(char const *num1, char const *num2);
  */
 char *makeCopy(char const *number);
 
-/** @brief Sprawdza czy numer zaczyn się danego prefixu.
+/** @brief Sprawdza czy numer zaczyna się od danego prefixu.
  * Sprawdza czy @p number zaczyna się od prefixu @p prefix.
- * @param[in] number - wskaźnik na napis reprezentujący numer;
+ * @param[in] number - wskaźnik na napis reprezentujący numer telefonu;
  * @param[in] prefix - wskaźnik na napis reprezentujący prefix;
  * @return Wartość @p true, jeśli numer zaczyna się od prefixu.
  *         Wartość @p false, jeśli numery nie zaczyna się od prefixu.

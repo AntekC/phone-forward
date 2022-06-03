@@ -149,14 +149,18 @@ void changeFirstNumber(PhoneNumbers *pnum, char *num) {
 }
 
 bool addNextNumber(PhoneNumbers *pnum, char *num) {
-    while (pnum->next != NULL) {
-        pnum = pnum->next;
-    }
-    pnum->next = newPhoneNumber(num);
-    if (pnum->next == NULL) {
-        return false;
+    if (pnum != NULL) {
+        while (pnum->next != NULL) {
+            pnum = pnum->next;
+        }
+        pnum->next = newPhoneNumber(num);
+        if (pnum->next == NULL) {
+            return false;
+        } else {
+            return true;
+        }
     } else {
-        return true;
+        return false;
     }
 }
 
