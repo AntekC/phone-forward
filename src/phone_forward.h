@@ -120,19 +120,63 @@ void phnumDelete(PhoneNumbers *pnum);
  */
 char const * phnumGet(PhoneNumbers const *pnum, size_t idx);
 
-void phnumDeleteFirstNumber(PhoneNumbers **pnum);
-
-void phnumDeleteLaterNumber(PhoneNumbers *pnum, char const *number);
-
-void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix);
-
-bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char const *num);
-
+/** @brief Tworzy nową strukturę.
+ * Tworzy nową strukturę PhoneNumbers zawierającą jeden numer telefonu @p number.
+ * @param[in] number - wskaźnik na napis reprezentujący numer.
+ * @return Wskaźnik na strukturę przechowującą numer telefonu @p number lub NULL, gdy nie
+ *         udało się alokować pamięci.
+ */
 PhoneNumbers *newPhoneNumber(char *number);
 
-void changeFirstNumber(PhoneNumbers *numbers, char *num);
+/** @brief Usuwa pierwszy numer ze struktury.
+ * Usuwa pierwszy numer ze struktury @p pnum.
+ * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ */
+void phnumDeleteFirstNumber(PhoneNumbers **pnum);
 
-bool addNextNumber(PhoneNumbers *numbers, char *num);
+/** @brief Usuwa numer ze struktury.
+ * Usuwa numer @p number ze struktury @p pnum.
+ * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] number - wskaźnik na napis reprezentujący numer do usunięcia.
+ */
+void phnumDeleteLaterNumber(PhoneNumbers *pnum, char const *number);
+
+/** @brief Usuwa wszystkie numery z danym prefixem z struktury.
+ * Usuwa wszystkie numery ze struktury @p pnum zaczynające się od prefixu @p prefix.
+ * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] prefix - wskaźnik na napis reprezentujący prefix
+ *                     numerów do usunięcia.
+ */
+void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix);
+
+/** @brief Zmienia pierwszy numer telefonu.
+ * Zmienia pierwszy numer telefonu z struktury @p pnum na numer @p num.
+ * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] number - wskaźnik na napis reprezentujący numer do zamienienia.
+ */
+void changeFirstNumber(PhoneNumbers *pnum, char *num);
+
+/** @brief Dodaje numery do struktury.
+ * Dodaje wszystkie numery z struktury @p source do struktury @p target.
+ * Scala napotkane numery z numerem @p num w zależności od tego na jakim poziomie @p level
+ * w drzewie reverse się znajdujemy.
+ * @param[in] source – wskaźnik na strukturę przechowującą ciąg numerów telefonów do dodania;
+ * @param[in, out] target – wskaźnik na strukturę przechowującą ciąg numerów telefonów które dodajmy;
+ * @param[in] level - głebokość w jakiej jesteśmy w drzewie reverse.
+ * @param[in] num - wskaźnik na napis reprezentujący numer do scalenia.
+ * @return Wartość @p true, jeśli dodano wszystkie numery.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci.
+ */
+bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char const *num);
+
+/** @brief Dodaje numer do struktury.
+ * Dodaje numer @p num do struktury @p pnum.
+ * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] num - wskaźnik na napis reprezentujący numer do dodania.
+ * @return Wartość @p true, jeśli dodano numer.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci.
+ */
+bool addNextNumber(PhoneNumbers *pnum, char *num);
 
 
 #endif /* __PHONE_FORWARD_H__ */
