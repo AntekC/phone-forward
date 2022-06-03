@@ -77,7 +77,7 @@ static bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t 
  * @return Wartość @p true, jeśli udało się wstawić numer.
  *         Wartość @p false, jeśli nie udało się alokować pamięci.
  */
-static bool insertLaterNumber(PhoneNumbers *ans, char const *number, size_t level, char const *num) {
+static bool insertLaterNumber(PhoneNumbers *result, char const *number, size_t level, char const *num) {
     char *number_to_insert = combineNumbers(number, num + level + 1);
     if (number_to_insert == NULL) {
         return false;
@@ -88,20 +88,20 @@ static bool insertLaterNumber(PhoneNumbers *ans, char const *number, size_t leve
         return false;
     }
 
-    PhoneNumbers *prev = ans;
-    ans = ans->next;
+    PhoneNumbers *prev = result;
+    result = result->next;
 
-    while (ans != NULL) {
-        if (areNumbersIndentical(ans->number, number_to_insert)) {
+    while (result != NULL) {
+        if (areNumbersIndentical(result->number, number_to_insert)) {
             phnumDelete(insert);
             return true;
-        } else if (compareNumbers(ans->number, number_to_insert)) {
+        } else if (compareNumbers(result->number, number_to_insert)) {
             prev->next = insert;
-            insert->next = ans;
+            insert->next = result;
             return true;
         } else {
-            prev = ans;
-            ans = ans->next;
+            prev = result;
+            result = result->next;
         }
     }
 
