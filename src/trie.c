@@ -9,6 +9,9 @@
 #include "phone_forward.h"
 #include "trie.h"
 
+/**
+ * To jest struktura reprezentująca drzewo trie.
+ */
 struct Trie {
     Trie *children[NUMBER_OF_CHILDREN]; ///< Wskaźnik na dzieci danego węzła.
     PhoneNumbers *numbers; ///< Wskaźnik strukturę PhoneNumbers zawierającej przkierowane prefixy.

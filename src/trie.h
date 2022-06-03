@@ -51,7 +51,7 @@ void deleteForwardSubtrie(Trie *forward_trie, Trie *reverse_trie, char const *nu
 /** @brief Usuwa numer z drzewa reverse.
  * Usuwa numer @p number_to_delete będący przekierowaniem na numer @p number_reverse z drzewa reverse.
  * Nic nie robi, jeśli wskaźnik @p reverse_trie ma wartość NULL.
- * @param[in] trie – wskaźnik na drzewo reverse;
+ * @param[in] reverse – wskaźnik na drzewo reverse;
  * @param[in] number_reverse  – wskaźnik na napis reprezentujący numer
  *                                którego przekierowanie usuwamy;
  * @param[in] number_to_delete  – wskaźnik na napis reprezentujący numer
