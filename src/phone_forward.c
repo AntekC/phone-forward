@@ -30,6 +30,16 @@ struct PhoneNumbers {
     char *number; ///< Wskaźnik na napis reprezentujący numer telefonu.
 };
 
+/** @brief Wstawia numer na początek.
+ * Wstawia numer @p number na początek struktury @p result, scalając go
+ * z numerem @p num w zależności od poziomu @p level na jakim się znajdujemy w drzewie reverse.
+ * @param[in,out] result – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] number – wskaźnik na napis reprezentujący numer do wstawienia;
+ * @param[in] level - głebokość w jakiej jesteśmy w drzewie reverse.
+ * @param[in] num - wskaźnik na napis reprezentujący numer do scalenia.
+ * @return Wartość @p true, jeśli udało się wstawić numer.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci.
+ */
 static bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t level, char const *num) {
     char *number_to_insert = combineNumbers(number, num + level + 1);
     if (number_to_insert == NULL) {
@@ -42,6 +52,7 @@ static bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t 
         return true;
     }
 
+    // Wstawiamy scalony numer do struktury.
     if ((*result) != NULL) {
         PhoneNumbers *new = newPhoneNumber(number_to_insert);
         if (new == NULL) {
@@ -56,6 +67,16 @@ static bool insertFirstNumber(PhoneNumbers **result, char const *number, size_t 
     }
 }
 
+/** @brief Wstawia numer do struktury.
+ * Wstawia numer @p number na nie na początek struktury @p result, scalając go
+ * z numerem @p num w zależności od poziomu @p level na jakim się znajdujemy w drzewie reverse.
+ * @param[in,out] result – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] number – wskaźnik na napis reprezentujący numer do wstawienia;
+ * @param[in] level - głebokość w jakiej jesteśmy w drzewie reverse.
+ * @param[in] num - wskaźnik na napis reprezentujący numer do scalenia.
+ * @return Wartość @p true, jeśli udało się wstawić numer.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci.
+ */
 static bool insertLaterNumber(PhoneNumbers *ans, char const *number, size_t level, char const *num) {
     char *number_to_insert = combineNumbers(number, num + level + 1);
     if (number_to_insert == NULL) {
