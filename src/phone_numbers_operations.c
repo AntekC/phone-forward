@@ -12,6 +12,12 @@
 #include <stdio.h>
 #include <ctype.h>
 
+/** @brief Wyznacza minimum z dwóch liczb.
+ * Wyznacza minimum z dwóch liczb @p a i @p b.
+ * @param[in] a – pierwsza liczba.
+ * @param[in] b – druga liczba.
+ * @return Wartość będącą minimum z dwóch liczb.
+ */
 static size_t min(size_t a, size_t b) {
     if (a > b) {
         return b;
@@ -20,6 +26,14 @@ static size_t min(size_t a, size_t b) {
     }
 }
 
+/** @brief Porównuje dwie cyfry.
+ * Porównuje ze sobą dwa znaki @p digit1 i @p digit2, reprezentujące cyfrę numeru telefonu.
+ * @param[in] digit1 – pierwsza cyfra.
+ * @param[in] digit2 – druga cyfra.
+ * @return Wartość dodatnią, jeśli @p digit1 > @p digit2.
+ *         Wartość ujemną, jeśli @p digit1 < @p digit2.
+ *         Zero, jeśli @p digit1 = @p digit2.
+ */
 static int compareDigit(char digit1, char digit2) {
     return (digitToOrder(digit1) - digitToOrder(digit2));
 }
