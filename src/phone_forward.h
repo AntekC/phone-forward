@@ -171,10 +171,12 @@ bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char 
 
 /** @brief Dodaje numer do struktury.
  * Dodaje numer @p num do struktury @p pnum.
+ * Nic nie robi, jeśli wskaźnik @p pnum ma wartość NULL.
  * @param[in] pnum – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
  * @param[in] num - wskaźnik na napis reprezentujący numer do dodania.
  * @return Wartość @p true, jeśli dodano numer.
- *         Wartość @p false, jeśli nie udało się alokować pamięci.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci
+ *         lub wskaźnik @p pnum miał wartość NULL.
  */
 bool addNextNumber(PhoneNumbers *pnum, char *num);
 
