@@ -244,41 +244,30 @@ bool getFromForward(Trie *forward, char const *num, PhoneNumbers **result) {
         forward = forward->children[index];
     }
 
+    char *number_to_give;
+
     // Nie ma takiego przekierownia na numer num, więc go zwracamy.
     if (forward_save == NULL) {
-        char *number_to_give = makeCopy(num);
-        if (number_to_give == NULL) {
-            (*result) = temp_result;
-            return false;
-        }
-
-        temp_result = newPhoneNumber(number_to_give);
-
-        if (temp_result == NULL) {
-            free(number_to_give);
-            (*result) = temp_result;
-            return false;
-        } else {
-            (*result) = temp_result;
-            return true;
-        }
+        number_to_give = makeCopy(num);
 
         // Istnieje przkierowania z numeru num, więc je zwracamy.
     } else {
-        char *number_to_give = combineNumbers(phnumGet(forward_save->numbers, 0), num + level_save + 1);
-        if (number_to_give == NULL) {
-            (*result) = temp_result;
-            return false;
-        }
+        number_to_give = combineNumbers(phnumGet(forward_save->numbers, 0), num + level_save + 1);
+    }
 
-        temp_result = newPhoneNumber(number_to_give);
+    if (number_to_give == NULL) {
+        (*result) = temp_result;
+        return false;
+    }
 
-        if (temp_result == NULL) {
-            free(number_to_give);
-            return false;
-        } else {
-            (*result) = temp_result;
-            return true;
-        }
+    temp_result = newPhoneNumber(number_to_give);
+
+    if (temp_result == NULL) {
+        free(number_to_give);
+        (*result) = temp_result;
+        return false;
+    } else {
+        (*result) = temp_result;
+        return true;
     }
 }
