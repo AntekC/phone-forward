@@ -216,11 +216,19 @@ void phnumDeleteAllLaterNumbersStarting(PhoneNumbers *pnum, char const *prefix) 
 
 bool addNumbers(PhoneNumbers *source, PhoneNumbers **target, size_t level, char const *num) {
     while (source != NULL) {
-        if (compareNumbers((*target)->number, source->number)) {
+        char *number_to_compare = combineNumbers(source->number, num + level + 1);
+
+        if (number_to_compare == NULL){
+            return false;
+        }
+
+        if (compareNumbers((*target)->number, number_to_compare)) {
+            free(number_to_compare);
             if (!insertFirstNumber(target, source->number, level, num)) {
                 return false;
             }
         } else {
+            free(number_to_compare);
             if (!insertLaterNumber(*target, source->number, level, num)) {
                 return false;
             }
@@ -320,10 +328,7 @@ bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
         if(areNumbersIndentical(num, buffer->number)){
             phnumDelete(buffer);
             buffer = NULL;
-            before = (*ans)->next;
-            if(before == NULL){
-                return true;
-            }
+            before = (*ans);
             jumper = before->next;
             break;
         } else {
@@ -336,22 +341,7 @@ bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
         }
     }
 
-    if (jumper == NULL){
-        PhoneNumbers *buffer;
-        buffer = phfwdGet(pf,before->number);
-
-        if(areNumbersIndentical(num,buffer->number)){
-            phnumDelete(buffer);
-            buffer = NULL;
-
-        } else {
-            phnumDelete(buffer);
-            buffer = NULL;
-
-            (*ans)->next = NULL;
-            free(before->number);
-            free(before);
-        }
+    if((*ans) == NULL || before == NULL){
         return true;
     }
 
@@ -383,8 +373,16 @@ PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
 
     if(pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
-        deleteNumbersFromAnwser(&ans, pf, num);
-        return ans;
+        if(deleteNumbersFromAnwser(&ans, pf, num)){
+            if(ans == NULL){
+                return newPhoneNumber(NULL);
+            } else {
+                return ans;
+            }
+        } else {
+            return NULL;
+        }
+
     } else {
         return NULL;
     }
