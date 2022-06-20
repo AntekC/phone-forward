@@ -304,9 +304,10 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
 }
 
 
-void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
+bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
 
     PhoneNumbers *jumper = NULL;
+    PhoneNumbers *before = NULL;
 
     while((*ans) != NULL){
         PhoneNumbers *buffer;
@@ -315,7 +316,11 @@ void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
         if(areNumbersIndentical(num, buffer->number)){
             phnumDelete(buffer);
             buffer = NULL;
-            jumper = (*ans)->next;
+            before = (*ans)->next;
+            if(before == NULL){
+                return true;
+            }
+            jumper = before->next;
             break;
         } else {
             phnumDelete(buffer);
@@ -326,6 +331,26 @@ void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
             free(save);
         }
     }
+
+    if (jumper == NULL){
+        PhoneNumbers *buffer;
+        buffer = phfwdGet(pf,before->number);
+
+        if(areNumbersIndentical(num,buffer->number)){
+            phnumDelete(buffer);
+            buffer = NULL;
+
+        } else {
+            phnumDelete(buffer);
+            buffer = NULL;
+
+            (*ans)->next = NULL;
+            free(before->number);
+            free(before);
+        }
+        return true;
+    }
+
     while(jumper != NULL){
         PhoneNumbers *buffer;
         buffer = phfwdGet(pf,jumper->number);
@@ -333,16 +358,20 @@ void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
         if(areNumbersIndentical(num, buffer->number)){
             phnumDelete(buffer);
             buffer = NULL;
+            before = jumper;
             jumper = jumper->next;
         } else {
             phnumDelete(buffer);
             buffer = NULL;
             PhoneNumbers *save = jumper;
             jumper = jumper->next;
+            before->next = jumper;
             free(save->number);
             free(save);
         }
     }
+
+    return true;
 }
 
 PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
