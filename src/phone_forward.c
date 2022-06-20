@@ -303,13 +303,59 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
     }
 }
 
+
+void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
+
+    PhoneNumbers *jumper = NULL;
+
+    while((*ans) != NULL){
+        PhoneNumbers *buffer;
+        buffer = phfwdGet(pf,(*ans)->number);
+
+        if(areNumbersIndentical(num, buffer->number)){
+            phnumDelete(buffer);
+            buffer = NULL;
+            jumper = (*ans)->next;
+            break;
+        } else {
+            phnumDelete(buffer);
+            buffer = NULL;
+            PhoneNumbers *save = (*ans);
+            (*ans) = (*ans)->next;
+            free(save->number);
+            free(save);
+        }
+    }
+    while(jumper != NULL){
+        PhoneNumbers *buffer;
+        buffer = phfwdGet(pf,jumper->number);
+
+        if(areNumbersIndentical(num, buffer->number)){
+            phnumDelete(buffer);
+            buffer = NULL;
+            jumper = jumper->next;
+        } else {
+            phnumDelete(buffer);
+            buffer = NULL;
+            PhoneNumbers *save = (*ans);
+            jumper = jumper->next;
+            free(save->number);
+            free(save);
+        }
+    }
+}
+
 PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
     PhoneNumbers *ans = NULL;
 
+
+
     if(pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
-        return ans;
+        deleteNumbersFromAnwser(&ans, pf, num);
     } else {
         return NULL;
     }
 }
+
+
