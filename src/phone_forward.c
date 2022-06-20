@@ -337,7 +337,7 @@ void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
         } else {
             phnumDelete(buffer);
             buffer = NULL;
-            PhoneNumbers *save = (*ans);
+            PhoneNumbers *save = jumper;
             jumper = jumper->next;
             free(save->number);
             free(save);
