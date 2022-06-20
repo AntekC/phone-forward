@@ -348,11 +348,10 @@ void deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
 PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
     PhoneNumbers *ans = NULL;
 
-
-
     if(pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
         deleteNumbersFromAnwser(&ans, pf, num);
+        return ans;
     } else {
         return NULL;
     }
