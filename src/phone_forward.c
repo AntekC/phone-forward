@@ -306,6 +306,10 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
 
 bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
 
+    if((*ans) == NULL){
+        return true;
+    }
+
     PhoneNumbers *jumper = NULL;
     PhoneNumbers *before = NULL;
 
