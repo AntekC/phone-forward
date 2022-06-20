@@ -89,8 +89,8 @@ void phfwdRemove(PhoneForward *pf, char const *num);
 PhoneNumbers * phfwdGet(PhoneForward const *pf, char const *num);
 
 /** @brief Wyznacza przekierowania na dany numer.
- * Wyznacza następujący ciąg numerów: jeśli istnieje numer @p x, taki że wynik
- * wywołania @p phfwdGet z numerem @p x zawiera numer @p num, to numer @p x
+ * Wyznacza następujący ciąg numerów: jeśli istnieje numer @p x, taki że istnieje
+ * przekierowanie dające w wyniku numer @p num, to numer @p x
  * należy do wyniku wywołania @ref phfwdReverse z numerem @p num. Dodatkowo ciąg
  * wynikowy zawsze zawiera też numer @p num. Wynikowe numery są posortowane
  * leksykograficznie i nie mogą się powtarzać. Jeśli podany napis nie
@@ -102,6 +102,9 @@ PhoneNumbers * phfwdGet(PhoneForward const *pf, char const *num);
  *         udało się alokować pamięci.
  */
 PhoneNumbers * phfwdReverse(PhoneForward const *pf, char const *num);
+
+
+PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num);
 
 /** @brief Usuwa strukturę.
  * Usuwa strukturę wskazywaną przez @p pnum. Nic nie robi, jeśli wskaźnik ten ma

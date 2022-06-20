@@ -302,3 +302,14 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
         return NULL;
     }
 }
+
+PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
+    PhoneNumbers *ans = NULL;
+
+    if(pf != NULL){
+        getFromReverse(pf->reverse, num, &ans);
+        return ans;
+    } else {
+        return NULL;
+    }
+}
