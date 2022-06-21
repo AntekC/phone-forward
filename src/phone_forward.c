@@ -324,6 +324,9 @@ bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
     while((*ans) != NULL){
         PhoneNumbers *buffer;
         buffer = phfwdGet(pf,(*ans)->number);
+        if(buffer == NULL){
+            return false;
+        }
 
         if(areNumbersIndentical(num, buffer->number)){
             phnumDelete(buffer);
@@ -348,6 +351,9 @@ bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char co
     while(jumper != NULL){
         PhoneNumbers *buffer;
         buffer = phfwdGet(pf,jumper->number);
+        if(buffer == NULL){
+            return false;
+        }
 
         if(areNumbersIndentical(num, buffer->number)){
             phnumDelete(buffer);
@@ -373,13 +379,14 @@ PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
 
     if(pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
-        if(deleteNumbersFromAnwser(&ans, pf, num)){
+        if (deleteNumbersFromAnwser(&ans, pf, num)){
             if(ans == NULL){
                 return newPhoneNumber(NULL);
             } else {
                 return ans;
             }
         } else {
+            phnumDelete(ans);
             return NULL;
         }
 
