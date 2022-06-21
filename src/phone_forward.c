@@ -109,6 +109,83 @@ static bool insertLaterNumber(PhoneNumbers *result, char const *number, size_t l
     return true;
 }
 
+
+/** @brief Usuwa numery z struktury.
+ * Usuwa numery ze struktury @p ans, które w wyniku wywołania przez funkcje phfwdGet
+ * nie zwracją numeru @p num.
+ * @param[in,out] ans – wskaźnik na strukturę przechowującą ciąg numerów telefonów;
+ * @param[in] pf – wskaźnik na strukturę przechowującą przekierowania numerów;
+ * @param[in] num – wskaźnik na napis reprezentujący numer do sprawdzenia;
+ * @return Wartość @p true, jeśli udało się usunąć numery.
+ *         Wartość @p false, jeśli nie udało się alokować pamięci przy sprawdzaniu numerów.
+ */
+static bool deleteNumbersFromReversePhnum(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
+    if((*ans) == NULL){
+        return true;
+    }
+
+    PhoneNumbers *jumper = NULL;
+    PhoneNumbers *before = NULL;
+
+    while((*ans) != NULL){
+        PhoneNumbers *buffer;
+        buffer = phfwdGet(pf,(*ans)->number);
+        if(buffer == NULL){
+            return false;
+        }
+
+        if(areNumbersIndentical(num, buffer->number)){
+            phnumDelete(buffer);
+            buffer = NULL;
+
+            before = (*ans);
+            jumper = before->next;
+            break;
+        } else {
+            phnumDelete(buffer);
+            buffer = NULL;
+
+            PhoneNumbers *save = (*ans);
+            (*ans) = (*ans)->next;
+
+            free(save->number);
+            free(save);
+        }
+    }
+
+    if((*ans) == NULL || before == NULL){
+        return true;
+    }
+
+    while(jumper != NULL){
+        PhoneNumbers *buffer;
+        buffer = phfwdGet(pf,jumper->number);
+        if(buffer == NULL){
+            return false;
+        }
+
+        if(areNumbersIndentical(num, buffer->number)){
+            phnumDelete(buffer);
+            buffer = NULL;
+
+            before = jumper;
+            jumper = jumper->next;
+        } else {
+            phnumDelete(buffer);
+            buffer = NULL;
+
+            PhoneNumbers *save = jumper;
+            jumper = jumper->next;
+            before->next = jumper;
+
+            free(save->number);
+            free(save);
+        }
+    }
+
+    return true;
+}
+
 PhoneNumbers *newPhoneNumber(char *number) {
     PhoneNumbers *ans = malloc(sizeof(PhoneNumbers));
     if (ans == NULL) {
@@ -311,75 +388,12 @@ PhoneNumbers *phfwdReverse(PhoneForward const *pf, char const *num) {
     }
 }
 
-
-bool deleteNumbersFromAnwser(PhoneNumbers **ans, PhoneForward const *pf, char const *num) {
-
-    if((*ans) == NULL){
-        return true;
-    }
-
-    PhoneNumbers *jumper = NULL;
-    PhoneNumbers *before = NULL;
-
-    while((*ans) != NULL){
-        PhoneNumbers *buffer;
-        buffer = phfwdGet(pf,(*ans)->number);
-        if(buffer == NULL){
-            return false;
-        }
-
-        if(areNumbersIndentical(num, buffer->number)){
-            phnumDelete(buffer);
-            buffer = NULL;
-            before = (*ans);
-            jumper = before->next;
-            break;
-        } else {
-            phnumDelete(buffer);
-            buffer = NULL;
-            PhoneNumbers *save = (*ans);
-            (*ans) = (*ans)->next;
-            free(save->number);
-            free(save);
-        }
-    }
-
-    if((*ans) == NULL || before == NULL){
-        return true;
-    }
-
-    while(jumper != NULL){
-        PhoneNumbers *buffer;
-        buffer = phfwdGet(pf,jumper->number);
-        if(buffer == NULL){
-            return false;
-        }
-
-        if(areNumbersIndentical(num, buffer->number)){
-            phnumDelete(buffer);
-            buffer = NULL;
-            before = jumper;
-            jumper = jumper->next;
-        } else {
-            phnumDelete(buffer);
-            buffer = NULL;
-            PhoneNumbers *save = jumper;
-            jumper = jumper->next;
-            before->next = jumper;
-            free(save->number);
-            free(save);
-        }
-    }
-
-    return true;
-}
-
 PhoneNumbers * phfwdGetReverse(PhoneForward const *pf, char const *num){
     PhoneNumbers *ans = NULL;
 
     if(pf != NULL){
         getFromReverse(pf->reverse, num, &ans);
-        if (deleteNumbersFromAnwser(&ans, pf, num)){
+        if (deleteNumbersFromReversePhnum(&ans, pf, num)){
             if(ans == NULL){
                 return newPhoneNumber(NULL);
             } else {
