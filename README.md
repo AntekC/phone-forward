@@ -1,6 +1,6 @@
 # Phone Forwarding Library
 
-This project, developed as an individual programming assignment at the University of Warsaw, implements a library for managing phone number redirection operations. It allows users to add and remove phone number forwarding rules, retrieve redirected numbers, and handle complex reverse lookups. The library is implemented in **C** and thoroughly documented with **Doxygen**, ensuring clear code structure and ease of use for developers.
+This project, developed as an individual programming assignment at the University of Warsaw, implements a library for managing phone number redirection operations. It allows users to add and remove phone number forwarding rules, retrieve redirected numbers, and handle complex reverse lookups. The library is implemented in **C** and thoroughly documented with **Doxygen**.
 
 ### Key Features
 - **Phone Number Redirection:** Supports prefix-based redirection, enabling redirection of all numbers sharing a common prefix.
